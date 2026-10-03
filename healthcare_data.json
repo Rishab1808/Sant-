@@ -1,0 +1,923 @@
+{
+  "procedures": [
+    {
+      "id": "p1",
+      "name": "Appendectomy (Appendix Surgery)",
+      "category": "Surgery",
+      "description": "Surgical removal of the appendix due to acute inflammation or infection.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹5,000", "trust": "₹18,000 - ₹35,000", "private": "₹55,000 - ₹95,000" },
+        "tier2": { "government": "₹0 - ₹3,000", "trust": "₹15,000 - ₹25,000", "private": "₹40,000 - ₹70,000" },
+        "tier3": { "government": "₹0 - ₹1,500", "trust": "₹10,000 - ₹18,000", "private": "₹25,000 - ₹45,000" }
+      },
+      "hidden_costs": [
+        "Post-operative antibiotics and specialized painkillers",
+        "Surgeon visiting fees for follow-ups (often excluded from package)",
+        "Surgical consumables (drapes, specialized staplers, hygiene kits)"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "Up to ₹5,00,000", "eligibility": "BPL families and low-income groups holding a valid PM-JAY e-card." },
+        { "name": "State Aarogyasri / Health Trust", "coverage": "Full Cashless", "eligibility": "Residents holding state-issued white ration cards." }
+      ]
+    },
+    {
+      "id": "p2",
+      "name": "Dengue Fever Inpatient Treatment",
+      "category": "General Medicine",
+      "description": "Hospitalization for severe dengue fever, IV fluid management, and platelet monitoring.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹2,000", "trust": "₹10,000 - ₹20,000", "private": "₹30,000 - ₹60,000" },
+        "tier2": { "government": "₹0 - ₹1,000", "trust": "₹8,000 - ₹15,000", "private": "₹20,000 - ₹40,000" },
+        "tier3": { "government": "₹0 - ₹500", "trust": "₹5,000 - ₹10,000", "private": "₹12,000 - ₹25,000" }
+      },
+      "hidden_costs": [
+        "ICU shift charges if platelet count drops critically",
+        "Blood bank processing fees for platelet transfusions",
+        "Daily specialist consultation fees not included in room rent"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "Up to ₹5,00,000", "eligibility": "BPL families holding a valid PM-JAY e-card." }
+      ]
+    },
+    {
+      "id": "p3",
+      "name": "Cataract Surgery (Phacoemulsification)",
+      "category": "Ophthalmology",
+      "description": "Removal of cloudy eye lens and replacement with an artificial intraocular lens (IOL).",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹1,000", "trust": "₹5,000 - ₹12,000", "private": "₹25,000 - ₹65,000" },
+        "tier2": { "government": "₹0 - ₹500", "trust": "₹3,000 - ₹8,000", "private": "₹15,000 - ₹40,000" },
+        "tier3": { "government": "₹0", "trust": "₹2,000 - ₹5,000", "private": "₹10,000 - ₹25,000" }
+      },
+      "hidden_costs": [
+        "Premium Intraocular Lens (IOL) upgrades (multifocal/toric)",
+        "Pre-operative fitness tests (ECG, blood sugar)",
+        "Post-operative eye drops and protective dark glasses"
+      ],
+      "schemes": [
+        { "name": "National Programme for Control of Blindness (NPCB)", "coverage": "Free Surgery & Standard Lens", "eligibility": "Open to all citizens at designated government and NGO eye camps." }
+      ]
+    },
+    {
+      "id": "p4",
+      "name": "MRI Scan (Brain/Spine)",
+      "category": "Diagnostics",
+      "description": "Magnetic Resonance Imaging for detailed cross-sectional images of internal organs.",
+      "costs": {
+        "tier1": { "government": "₹1,500 - ₹3,000", "trust": "₹3,500 - ₹5,000", "private": "₹6,000 - ₹12,000" },
+        "tier2": { "government": "₹1,000 - ₹2,000", "trust": "₹2,500 - ₹4,000", "private": "₹4,500 - ₹8,000" },
+        "tier3": { "government": "₹500 - ₹1,500", "trust": "₹2,000 - ₹3,000", "private": "₹3,500 - ₹6,000" }
+      },
+      "hidden_costs": [
+        "Contrast dye injections (if doctor suddenly requests it during scan)",
+        "Anesthesia charges (required for highly claustrophobic patients or kids)",
+        "Hard copy film printing charges"
+      ],
+      "schemes": [
+        { "name": "State Free Diagnostics Initiative", "coverage": "Free or Heavily Subsidized", "eligibility": "Patients referred from government hospital OPDs." }
+      ]
+    },
+    {
+      "id": "p5",
+      "name": "Total Knee Replacement (Unilateral)",
+      "category": "Orthopedics",
+      "description": "Surgical replacement of a damaged knee joint with an artificial implant.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹5,000", "trust": "₹70,000 - ₹90,000", "private": "₹1,50,000 - ₹2,50,000" },
+        "tier2": { "government": "₹0 - ₹3,000", "trust": "₹55,000 - ₹75,000", "private": "₹1,20,000 - ₹1,80,000" },
+        "tier3": { "government": "₹0 - ₹2,000", "trust": "₹40,000 - ₹60,000", "private": "₹90,000 - ₹1,40,000" }
+      },
+      "hidden_costs": [
+        "Imported high-flex implants vs standard implants",
+        "Post-operative physiotherapy at home (often weeks of sessions)",
+        "DVT pump rentals and specialized compression stockings"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "₹80,000 – ₹1,20,000 package", "eligibility": "BPL families holding a valid PM-JAY e-card." }
+      ]
+    },
+    {
+      "id": "p6",
+      "name": "Coronary Angioplasty (Single Stent)",
+      "category": "Cardiology",
+      "description": "Procedure to open clogged heart arteries using a balloon and placing a stent.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹10,000", "trust": "₹60,000 - ₹80,000", "private": "₹1,20,000 - ₹2,00,000" },
+        "tier2": { "government": "₹0 - ₹5,000", "trust": "₹50,000 - ₹65,000", "private": "₹90,000 - ₹1,50,000" },
+        "tier3": { "government": "₹0 - ₹2,000", "trust": "₹35,000 - ₹50,000", "private": "₹70,000 - ₹1,10,000" }
+      },
+      "hidden_costs": [
+        "Drug-eluting vs bare-metal stent cost differences",
+        "Additional diagnostic angiogram charges if done on a separate day",
+        "ICU stay overruns beyond the standard package"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat / State Aarogyasri", "coverage": "₹60,000 – ₹1,00,000 package", "eligibility": "Eligible BPL families. Pre-authorization mandatory for elective cases." }
+      ]
+    },
+    {
+      "id": "p7",
+      "name": "Normal Delivery (Maternity)",
+      "category": "Obstetrics",
+      "description": "Vaginal childbirth without major surgical intervention.",
+      "costs": {
+        "tier1": { "government": "₹0", "trust": "₹5,000 - ₹12,000", "private": "₹25,000 - ₹60,000" },
+        "tier2": { "government": "₹0", "trust": "₹3,000 - ₹8,000", "private": "₹15,000 - ₹40,000" },
+        "tier3": { "government": "₹0", "trust": "₹2,000 - ₹5,000", "private": "₹8,000 - ₹20,000" }
+      },
+      "hidden_costs": [
+        "Newborn screening tests and vaccination charges",
+        "Pediatrician visit charges during hospital stay",
+        "Epidural anesthesia (if painless delivery is opted)"
+      ],
+      "schemes": [
+        { "name": "Janani Suraksha Yojana (JSY)", "coverage": "Cash assistance for institutional delivery", "eligibility": "Pregnant women delivering in government health facilities." },
+        { "name": "KCR Kit Scheme (Telangana)", "coverage": "Financial assistance (₹12,000 - ₹13,000) & baby essentials", "eligibility": "Women delivering in government hospitals in Telangana." }
+      ]
+    },
+    {
+      "id": "p8",
+      "name": "Laparoscopic Cholecystectomy",
+      "category": "General Surgery",
+      "description": "Minimally invasive surgical removal of the gallbladder, usually for gallstones.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹2,000", "trust": "₹20,000 - ₹30,000", "private": "₹45,000 - ₹80,000" },
+        "tier2": { "government": "₹0 - ₹1,000", "trust": "₹15,000 - ₹22,000", "private": "₹30,000 - ₹55,000" },
+        "tier3": { "government": "₹0 - ₹500", "trust": "₹10,000 - ₹15,000", "private": "₹20,000 - ₹40,000" }
+      },
+      "hidden_costs": [
+        "Conversion to open surgery if complications arise",
+        "Use of specialized surgical clips or advanced sealing devices",
+        "Biopsy/histopathology charges for the removed tissue"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat / State Aarogyasri", "coverage": "₹20,000 – ₹35,000 package", "eligibility": "BPL cardholders. Covered under general/laparoscopic surgery packages." }
+      ]
+    },
+    {
+      "id": "p9",
+      "name": "Cesarean Section (C-Section)",
+      "category": "Obstetrics",
+      "description": "Surgical delivery of a baby through incisions in the mother's abdomen and uterus.",
+      "costs": {
+        "tier1": { "government": "₹0", "trust": "₹12,000 - ₹22,000", "private": "₹50,000 - ₹1,10,000" },
+        "tier2": { "government": "₹0", "trust": "₹8,000 - ₹16,000", "private": "₹35,000 - ₹75,000" },
+        "tier3": { "government": "₹0", "trust": "₹5,000 - ₹10,000", "private": "₹20,000 - ₹45,000" }
+      },
+      "hidden_costs": [
+        "Extended nursery stay or NICU charges for newborn",
+        "Specialized post-op pain management pumps",
+        "Emergency operation theater surcharges if done off-hours"
+      ],
+      "schemes": [
+        { "name": "Janani Shishu Suraksha Karyakram (JSSK)", "coverage": "100% Free including C-section, drugs & transport", "eligibility": "All pregnant women in government health facilities." }
+      ]
+    },
+    {
+      "id": "p10",
+      "name": "Coronary Artery Bypass Graft (CABG)",
+      "category": "Cardiology",
+      "description": "Open-heart surgery to restore blood flow to heart muscle by bypassing blocked arteries.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹15,000", "trust": "₹1,10,000 - ₹1,60,000", "private": "₹2,50,000 - ₹4,50,000" },
+        "tier2": { "government": "₹0 - ₹10,000", "trust": "₹85,000 - ₹1,20,000", "private": "₹1,80,000 - ₹3,20,000" },
+        "tier3": { "government": "₹0 - ₹5,000", "trust": "₹60,000 - ₹90,000", "private": "₹1,30,000 - ₹2,20,000" }
+      },
+      "hidden_costs": [
+        "Extended ICU isolation stay and ventilator usage fees",
+        "Post-discharge cardiac rehabilitation program fees",
+        "Specialized blood products (plasma, platelets) required during bypass"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "Up to ₹1,50,000 per bypass package", "eligibility": "PM-JAY e-card holders." }
+      ]
+    },
+    {
+      "id": "p11",
+      "name": "Dialysis (Hemodialysis - Per Session)",
+      "category": "Nephrology",
+      "description": "Filter patient's blood using a dialyzer to remove waste and excess fluid in kidney failure.",
+      "costs": {
+        "tier1": { "government": "₹0", "trust": "₹800 - ₹1,400", "private": "₹2,200 - ₹4,500" },
+        "tier2": { "government": "₹0", "trust": "₹600 - ₹1,000", "private": "₹1,600 - ₹3,200" },
+        "tier3": { "government": "₹0", "trust": "₹400 - ₹800", "private": "₹1,200 - ₹2,200" }
+      },
+      "hidden_costs": [
+        "Erythropoietin (EPO) hormone injections for anemia",
+        "AV Fistula surgical creation charges (one-time requirement)",
+        "Routine monthly blood panel tests"
+      ],
+      "schemes": [
+        { "name": "National Dialysis Programme (PMNDP)", "coverage": "100% Free Hemodialysis", "eligibility": "BPL patients receiving treatment at district government hospitals." }
+      ]
+    },
+    {
+      "id": "p12",
+      "name": "Renal Transplant (Kidney Transplant)",
+      "category": "Nephrology",
+      "description": "Surgical procedure to place a healthy kidney from a donor into a patient with kidney failure.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹25,000", "trust": "₹2,50,000 - ₹4,000,00", "private": "₹6,000,00 - ₹11,00,000" },
+        "tier2": { "government": "₹0 - ₹15,000", "trust": "₹2,00,000 - ₹3,00,000", "private": "₹4,50,000 - ₹8,00,000" },
+        "tier3": { "government": "₹0 - ₹10,000", "trust": "₹1,50,000 - ₹2,20,000", "private": "₹3,50,000 - ₹6,00,000" }
+      },
+      "hidden_costs": [
+        "Lifelong immunosuppressant medication costs (₹10,000 - ₹25,000/month)",
+        "Donor evaluation tests and organ authorization committee fees",
+        "Post-transplant infection isolation ward stay"
+      ],
+      "schemes": [
+        { "name": "State Jeevandan / Organ Donation Trust", "coverage": "Subsidized Transplant Packages", "eligibility": "Registered patients on state organ waiting list." }
+      ]
+    },
+    {
+      "id": "p13",
+      "name": "Chemotherapy (Per Cycle)",
+      "category": "Oncology",
+      "description": "Cancer drug treatment using powerful chemicals to kill fast-growing cells.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹2,000", "trust": "₹8,000 - ₹20,000", "private": "₹30,000 - ₹90,000" },
+        "tier2": { "government": "₹0 - ₹1,000", "trust": "₹6,000 - ₹15,000", "private": "₹20,000 - ₹60,000" },
+        "tier3": { "government": "₹0 - ₹500", "trust": "₹4,000 - ₹10,000", "private": "₹15,000 - ₹40,000" }
+      },
+      "hidden_costs": [
+        "Targeted immunotherapy or monoclonal antibody drugs",
+        "Chemo port insertion surgical procedure",
+        "Growth factor (G-CSF) injections to boost WBC count post-chemo"
+      ],
+      "schemes": [
+        { "name": "PM-JAY Oncology Package", "coverage": "Full Chemo Cycle Package", "eligibility": "Empaneled cancer hospital admissions with PM-JAY card." }
+      ]
+    },
+    {
+      "id": "p14",
+      "name": "Radiation Therapy (IMRT / IGRT Course)",
+      "category": "Oncology",
+      "description": "Targeted high-energy rays to destroy cancer cells and shrink tumors.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹10,000", "trust": "₹60,000 - ₹1,00,000", "private": "₹1,80,000 - ₹3,50,000" },
+        "tier2": { "government": "₹0 - ₹5,000", "trust": "₹45,000 - ₹75,000", "private": "₹1,20,000 - ₹2,50,000" },
+        "tier3": { "government": "₹0 - ₹2,000", "trust": "₹30,000 - ₹50,000", "private": "₹80,000 - ₹1,80,000" }
+      },
+      "hidden_costs": [
+        "Therapy planning and 3D contouring CT scan charges",
+        "Thermoplastic immobilization mask customization fees",
+        "Supportive skin gels and radiation burn ointments"
+      ],
+      "schemes": [
+        { "name": "RAN (Rashtriya Arogya Nidhi)", "coverage": "Up to ₹15,00,000 one-time assistance", "eligibility": "BPL cancer patients in government super-specialty hospitals." }
+      ]
+    },
+    {
+      "id": "p15",
+      "name": "CT Scan (Whole Abdomen)",
+      "category": "Diagnostics",
+      "description": "Computed Tomography scan offering detailed 3D imaging of abdominal organs.",
+      "costs": {
+        "tier1": { "government": "₹800 - ₹1,800", "trust": "₹2,500 - ₹4,000", "private": "₹5,000 - ₹9,500" },
+        "tier2": { "government": "₹500 - ₹1,200", "trust": "₹1,800 - ₹3,000", "private": "₹3,800 - ₹7,000" },
+        "tier3": { "government": "₹300 - ₹800", "trust": "₹1,200 - ₹2,000", "private": "₹2,800 - ₹5,000" }
+      },
+      "hidden_costs": [
+        "Oral and IV contrast dye administration charges",
+        "Kidney function (Serum Creatinine) test before contrast injection",
+        "Emergency radiologist report escalation charges"
+      ],
+      "schemes": [
+        { "name": "Free Diagnostic Services Scheme", "coverage": "100% Free Diagnostics", "eligibility": "Government hospital admitted patients or referral cases." }
+      ]
+    },
+    {
+      "id": "p16",
+      "name": "Echocardiogram (2D Echo)",
+      "category": "Diagnostics",
+      "description": "Ultrasound scan of the heart to examine heart valves and pumping efficiency.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹300", "trust": "₹1,000 - ₹1,800", "private": "₹2,200 - ₹4,500" },
+        "tier2": { "government": "₹0 - ₹200", "trust": "₹700 - ₹1,200", "private": "₹1,500 - ₹3,200" },
+        "tier3": { "government": "₹0", "trust": "₹500 - ₹900", "private": "₹1,000 - ₹2,200" }
+      },
+      "hidden_costs": [
+        "Color Doppler add-on module charges",
+        "Cardiologist reading and consultation charges"
+      ],
+      "schemes": [
+        { "name": "National Health Mission (NHM)", "coverage": "Free Diagnostic Screening", "eligibility": "Available at District Hospitals and CHCs." }
+      ]
+    },
+    {
+      "id": "p17",
+      "name": "Total Hip Replacement (Unilateral)",
+      "category": "Orthopedics",
+      "description": "Surgical replacement of a damaged hip joint ball and socket with artificial implants.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹5,000", "trust": "₹75,000 - ₹1,00,000", "private": "₹1,80,000 - ₹3,20,000" },
+        "tier2": { "government": "₹0 - ₹3,000", "trust": "₹60,000 - ₹80,000", "private": "₹1,30,000 - ₹2,20,000" },
+        "tier3": { "government": "₹0 - ₹1,50,000", "trust": "₹45,000 - ₹65,000", "private": "₹95,000 - ₹1,60,000" }
+      },
+      "hidden_costs": [
+        "Ceramic-on-ceramic vs metal-on-polyethylene implant cost difference",
+        "Extended hospital rehabilitation ward stay",
+        "Walker, crutches, and specialized toilet elevation frame"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "₹90,000 – ₹1,30,000 package", "eligibility": "Empaneled tertiary hospitals for PM-JAY cardholders." }
+      ]
+    },
+    {
+      "id": "p18",
+      "name": "Arthroscopic ACL Reconstruction",
+      "category": "Orthopedics",
+      "description": "Keyhole knee surgery to replace a torn Anterior Cruciate Ligament (ACL).",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹3,000", "trust": "₹35,000 - ₹55,000", "private": "₹85,000 - ₹1,60,000" },
+        "tier2": { "government": "₹0 - ₹2,000", "trust": "₹25,000 - ₹40,000", "private": "₹65,000 - ₹1,10,000" },
+        "tier3": { "government": "₹0 - ₹1,000", "trust": "₹18,000 - ₹30,000", "private": "₹45,000 - ₹80,000" }
+      },
+      "hidden_costs": [
+        "Bioabsorbable interference screws vs titanium screws pricing",
+        "Specialized rigid hinged knee braces post-surgery",
+        "Physiotherapy rehabilitation package (3 to 6 months)"
+      ],
+      "schemes": [
+        { "name": "State Aarogyasri", "coverage": "Full Arthroscopy Package", "eligibility": "White ration card holders." }
+      ]
+    },
+    {
+      "id": "p19",
+      "name": "Tonsillectomy",
+      "category": "ENT",
+      "description": "Surgical removal of chronically infected or enlarged tonsils.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹1,500", "trust": "₹12,000 - ₹22,000", "private": "₹35,000 - ₹65,000" },
+        "tier2": { "government": "₹0 - ₹1,000", "trust": "₹9,000 - ₹16,000", "private": "₹25,000 - ₹45,000" },
+        "tier3": { "government": "₹0 - ₹500", "trust": "₹6,000 - ₹11,000", "private": "₹15,000 - ₹30,000" }
+      },
+      "hidden_costs": [
+        "Coblation technology wand usage fee (if plasma coblation is chosen)",
+        "Post-op soft diet food supplements and specialized liquid antibiotics"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "ENT Surgical Package", "eligibility": "PM-JAY e-card holders." }
+      ]
+    },
+    {
+      "id": "p20",
+      "name": "Tympanoplasty (Eardrum Repair)",
+      "category": "ENT",
+      "description": "Surgical reconstruction of a perforated eardrum (tympanic membrane).",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹2,000", "trust": "₹18,000 - ₹30,000", "private": "₹45,000 - ₹85,000" },
+        "tier2": { "government": "₹0 - ₹1,000", "trust": "₹12,000 - ₹22,000", "private": "₹30,000 - ₹60,000" },
+        "tier3": { "government": "₹0 - ₹500", "trust": "₹8,000 - ₹15,000", "private": "₹20,000 - ₹40,000" }
+      },
+      "hidden_costs": [
+        "Pre-operative audiometry (hearing test) & tympanometry",
+        "Microscopic / Endoscopic surgical equipment usage surcharges"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "Full ENT Reconstructive Package", "eligibility": "BPL cardholders." }
+      ]
+    },
+    {
+      "id": "p21",
+      "name": "Kidney Stone Removal (RIRS / Laser)",
+      "category": "Urology",
+      "description": "Retrograde Intrarenal Surgery using laser fiber to break up kidney stones without cuts.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹3,000", "trust": "₹30,000 - ₹50,000", "private": "₹70,000 - ₹1,30,000" },
+        "tier2": { "government": "₹0 - ₹1,500", "trust": "₹22,000 - ₹38,000", "private": "₹50,000 - ₹90,000" },
+        "tier3": { "government": "₹0 - ₹800", "trust": "₹15,000 - ₹25,000", "private": "₹35,000 - ₹65,000" }
+      },
+      "hidden_costs": [
+        "DJ Stent removal procedure charges done 2-3 weeks post-surgery",
+        "Holmium laser fiber disposable consumable fees"
+      ],
+      "schemes": [
+        { "name": "State Aarogyasri / PM-JAY", "coverage": "Urology Package Coverage", "eligibility": "Eligible BPL families." }
+      ]
+    },
+    {
+      "id": "p22",
+      "name": "TURP (Prostate Surgery)",
+      "category": "Urology",
+      "description": "Transurethral Resection of the Prostate for enlarged prostate causing urinary block.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹2,500", "trust": "₹25,000 - ₹42,000", "private": "₹60,000 - ₹1,10,000" },
+        "tier2": { "government": "₹0 - ₹1,500", "trust": "₹18,000 - ₹30,000", "private": "₹45,000 - ₹75,000" },
+        "tier3": { "government": "₹0 - ₹800", "trust": "₹12,000 - ₹20,000", "private": "₹30,000 - ₹50,000" }
+      },
+      "hidden_costs": [
+        "Bipolar or Laser TURP upgrade fees over monopolar",
+        "Catheterization supplies and continuous bladder irrigation fluids"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "Urology Resection Package", "eligibility": "PM-JAY cardholders." }
+      ]
+    },
+    {
+      "id": "p23",
+      "name": "Inguinal Hernia Repair (Mesh)",
+      "category": "General Surgery",
+      "description": "Surgical repair of a groin hernia reinforced with a synthetic mesh.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹2,000", "trust": "₹18,000 - ₹32,000", "private": "₹45,000 - ₹85,000" },
+        "tier2": { "government": "₹0 - ₹1,000", "trust": "₹14,000 - ₹24,000", "private": "₹32,000 - ₹60,000" },
+        "tier3": { "government": "₹0 - ₹500", "trust": "₹10,000 - ₹16,000", "private": "₹22,000 - ₹40,000" }
+      },
+      "hidden_costs": [
+        "Laparoscopic 3D Anatomical Mesh upgrade fees",
+        "Tacker or fixation glue system charges for laparoscopic repair"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat / State Aarogyasri", "coverage": "General Surgery Package", "eligibility": "BPL cardholders." }
+      ]
+    },
+    {
+      "id": "p24",
+      "name": "Haemorrhoidectomy (Piles Laser Treatment)",
+      "category": "General Surgery",
+      "description": "Laser ablation or surgical removal of painful swollen hemorrhoids.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹1,500", "trust": "₹15,000 - ₹28,000", "private": "₹40,000 - ₹80,000" },
+        "tier2": { "government": "₹0 - ₹800", "trust": "₹11,000 - ₹20,000", "private": "₹28,000 - ₹55,000" },
+        "tier3": { "government": "₹0 - ₹400", "trust": "₹8,000 - ₹14,000", "private": "₹18,000 - ₹35,000" }
+      },
+      "hidden_costs": [
+        "Laser probe disposable fiber fees",
+        "Post-operative sitz bath kits and laxative regimens"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "Surgical Package (Conventional)", "eligibility": "BPL families." }
+      ]
+    },
+    {
+      "id": "p25",
+      "name": "Pneumonia Inpatient Care",
+      "category": "Pulmonology",
+      "description": "Hospitalization for severe lung infection requiring IV antibiotics and oxygen therapy.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹1,500", "trust": "₹12,000 - ₹25,000", "private": "₹35,000 - ₹75,000" },
+        "tier2": { "government": "₹0 - ₹800", "trust": "₹9,000 - ₹18,000", "private": "₹24,000 - ₹50,000" },
+        "tier3": { "government": "₹0 - ₹400", "trust": "₹6,000 - ₹12,000", "private": "₹15,000 - ₹30,000" }
+      },
+      "hidden_costs": [
+        "High-flow nasal cannula or BiPAP ventilator usage per day",
+        "Sputum culture and antibiotic sensitivity testing"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "General Medicine Package", "eligibility": "PM-JAY e-card holders." }
+      ]
+    },
+    {
+      "id": "p26",
+      "name": "Coronary Angiogram",
+      "category": "Cardiology",
+      "description": "Diagnostic X-ray imaging using contrast dye to detect blockages in heart arteries.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹1,500", "trust": "₹6,000 - ₹10,000", "private": "₹12,000 - ₹22,000" },
+        "tier2": { "government": "₹0 - ₹1,000", "trust": "₹4,500 - ₹7,500", "private": "₹9,000 - ₹16,000" },
+        "tier3": { "government": "₹0 - ₹500", "trust": "₹3,000 - ₹5,000", "private": "₹6,500 - ₹11,000" }
+      },
+      "hidden_costs": [
+        "Day care bed rental charges",
+        "Femoral vs radial artery closure band consumables"
+      ],
+      "schemes": [
+        { "name": "State Aarogyasri / PM-JAY", "coverage": "Diagnostic Cardiology Package", "eligibility": "White ration card holders." }
+      ]
+    },
+    {
+      "id": "p27",
+      "name": "Pacemaker Implantation (Single Chamber)",
+      "category": "Cardiology",
+      "description": "Surgical placement of an electronic device under chest skin to regulate heartbeat.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹10,000", "trust": "₹80,000 - ₹1,20,000", "private": "₹1,60,000 - ₹2,80,000" },
+        "tier2": { "government": "₹0 - ₹5,000", "trust": "₹60,000 - ₹90,000", "private": "₹1,20,000 - ₹2,00,000" },
+        "tier3": { "government": "₹0 - ₹2,500", "trust": "₹45,000 - ₹65,000", "private": "₹90,000 - ₹1,50,000" }
+      },
+      "hidden_costs": [
+        "Dual-chamber or MRI-compatible device upgrade fees",
+        "Electrophysiologist programming and testing fees"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "Pacemaker Implantation Package", "eligibility": "PM-JAY cardholders." }
+      ]
+    },
+    {
+      "id": "p28",
+      "name": "LASIK Eye Surgery (Both Eyes)",
+      "category": "Ophthalmology",
+      "description": "Laser vision correction procedure to reshape the cornea and eliminate eyeglasses.",
+      "costs": {
+        "tier1": { "government": "Not Available", "trust": "₹25,000 - ₹40,000", "private": "₹45,000 - ₹1,10,000" },
+        "tier2": { "government": "Not Available", "trust": "₹18,000 - ₹30,000", "private": "₹35,000 - ₹75,000" },
+        "tier3": { "government": "Not Available", "trust": "₹12,000 - ₹20,000", "private": "₹25,000 - ₹50,000" }
+      },
+      "hidden_costs": [
+        "Femto-LASIK or Contoura Vision advanced custom software fees",
+        "Corneal topography (Pentacam) pre-surgery mapping tests"
+      ],
+      "schemes": [
+        { "name": "None (Cosmetic / Elective)", "coverage": "No Scheme", "eligibility": "Elective cosmetic procedure not covered by government schemes." }
+      ]
+    },
+    {
+      "id": "p29",
+      "name": "Vitrectomy (Retinal Surgery)",
+      "category": "Ophthalmology",
+      "description": "Surgical clearance of vitreous gel from inside the eye for retinal detachment or bleed.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹3,000", "trust": "₹28,000 - ₹48,000", "private": "₹65,000 - ₹1,20,000" },
+        "tier2": { "government": "₹0 - ₹1,500", "trust": "₹20,000 - ₹35,000", "private": "₹48,000 - ₹85,000" },
+        "tier3": { "government": "₹0 - ₹800", "trust": "₹14,000 - ₹24,000", "private": "₹32,000 - ₹60,000" }
+      },
+      "hidden_costs": [
+        "Silicone oil or gas tamponade bubble injection costs",
+        "Second surgical procedure charges for silicone oil removal months later"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "Vitreoretinal Package", "eligibility": "Empaneled eye hospital PM-JAY cardholders." }
+      ]
+    },
+    {
+      "id": "p30",
+      "name": "Typhoid Inpatient Care",
+      "category": "General Medicine",
+      "description": "Hospitalization for high fever caused by Salmonella Typhi, requiring IV Ceftriaxone.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹1,000", "trust": "₹8,000 - ₹16,000", "private": "₹22,000 - ₹45,000" },
+        "tier2": { "government": "₹0 - ₹500", "trust": "₹6,000 - ₹12,000", "private": "₹15,000 - ₹32,000" },
+        "tier3": { "government": "₹0", "trust": "₹4,000 - ₹8,000", "private": "₹10,000 - ₹20,000" }
+      },
+      "hidden_costs": [
+        "Blood culture (Widal test + automated culture bottle fees)",
+        "IV infusion sets and pharmacy markups"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "General Medical Admission", "eligibility": "BPL cardholders." }
+      ]
+    },
+    {
+      "id": "p31",
+      "name": "Diabetic Foot Ulcer Debridement",
+      "category": "General Surgery",
+      "description": "Surgical cleaning and removal of dead tissue from severe non-healing foot wound.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹1,500", "trust": "₹12,000 - ₹22,000", "private": "₹30,000 - ₹65,000" },
+        "tier2": { "government": "₹0 - ₹800", "trust": "₹9,000 - ₹16,000", "private": "₹22,000 - ₹45,000" },
+        "tier3": { "government": "₹0 - ₹400", "trust": "₹6,000 - ₹11,000", "private": "₹15,000 - ₹30,000" }
+      },
+      "hidden_costs": [
+        "VAC (Vacuum Assisted Closure) negative pressure dressing supplies",
+        "Specialized diabetic footwear and offloading insoles"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat / State Aarogyasri", "coverage": "Surgical Wound Management", "eligibility": "BPL cardholders." }
+      ]
+    },
+    {
+      "id": "p32",
+      "name": "Mastectomy (Breast Cancer Surgery)",
+      "category": "Oncology",
+      "description": "Surgical removal of partial or whole breast tissue for breast cancer treatment.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹4,000", "trust": "₹35,000 - ₹60,000", "private": "₹90,000 - ₹1,80,000" },
+        "tier2": { "government": "₹0 - ₹2,000", "trust": "₹25,000 - ₹42,000", "private": "₹65,000 - ₹1,30,000" },
+        "tier3": { "government": "₹0 - ₹1,000", "trust": "₹18,000 - ₹30,000", "private": "₹45,000 - ₹90,000" }
+      },
+      "hidden_costs": [
+        "Sentinel lymph node biopsy & frozen section lab report during surgery",
+        "Post-op compression brassieres and breast prostheses"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat / State Aarogyasri", "coverage": "Onco-Surgery Package", "eligibility": "Eligible female beneficiaries with PM-JAY." }
+      ]
+    },
+    {
+      "id": "p33",
+      "name": "PET-CT Scan (Whole Body)",
+      "category": "Diagnostics",
+      "description": "Nuclear medicine scan using radioactive tracer to detect microscopic cancer spread.",
+      "costs": {
+        "tier1": { "government": "₹5,000 - ₹8,000", "trust": "₹11,000 - ₹15,000", "private": "₹22,000 - ₹35,000" },
+        "tier2": { "government": "₹4,000 - ₹6,500", "trust": "₹9,000 - ₹12,000", "private": "₹18,000 - ₹28,000" },
+        "tier3": { "government": "₹3,000 - ₹5,000", "trust": "₹7,000 - ₹10,000", "private": "₹14,000 - ₹22,000" }
+      },
+      "hidden_costs": [
+        "Radioisotope (18F-FDG) injection synthesis fee",
+        "Blood glucose control emergency measures prior to tracer injection"
+      ],
+      "schemes": [
+        { "name": "State Cancer Diagnostic Subsidy", "coverage": "Subsidized PET-CT Rate", "eligibility": "Referrals from regional cancer centers." }
+      ]
+    },
+    {
+      "id": "p34",
+      "name": "Hysterectomy (Abdominal / Laparoscopic)",
+      "category": "Gynecology",
+      "description": "Surgical removal of the uterus due to fibroids, heavy bleeding, or prolapse.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹3,000", "trust": "₹25,000 - ₹45,000", "private": "₹65,000 - ₹1,30,000" },
+        "tier2": { "government": "₹0 - ₹1,500", "trust": "₹18,000 - ₹32,000", "private": "₹45,000 - ₹90,000" },
+        "tier3": { "government": "₹0 - ₹800", "trust": "₹12,000 - ₹22,000", "private": "₹30,000 - ₹60,000" }
+      },
+      "hidden_costs": [
+        "Laparoscopic morcellator bag charges",
+        "Hormone replacement therapy (HRT) starter kit post-oophorectomy"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "Gynecological Surgery Package", "eligibility": "BPL women holding PM-JAY cards." }
+      ]
+    },
+    {
+      "id": "p35",
+      "name": "Ovarian Cystectomy",
+      "category": "Gynecology",
+      "description": "Surgical removal of a benign or complex fluid cyst from the ovary.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹2,000", "trust": "₹20,000 - ₹35,000", "private": "₹50,000 - ₹95,000" },
+        "tier2": { "government": "₹0 - ₹1,000", "trust": "₹15,000 - ₹25,000", "private": "₹35,000 - ₹70,000" },
+        "tier3": { "government": "₹0 - ₹500", "trust": "₹10,000 - ₹18,000", "private": "₹25,000 - ₹48,000" }
+      },
+      "hidden_costs": [
+        "Histopathology cancer ruling-out biopsy fee",
+        "Anti-adhesion barrier gel applied intra-operatively"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat / State Aarogyasri", "coverage": "Gynecological Surgical Package", "eligibility": "BPL cardholders." }
+      ]
+    },
+    {
+      "id": "p36",
+      "name": "Spine Lumbar Discectomy",
+      "category": "Orthopedics",
+      "description": "Surgical removal of herniated disc material pressing on spinal nerve or cord.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹5,000", "trust": "₹50,000 - ₹80,000", "private": "₹1,20,000 - ₹2,30,000" },
+        "tier2": { "government": "₹0 - ₹3,000", "trust": "₹38,000 - ₹60,000", "private": "₹85,000 - ₹1,60,000" },
+        "tier3": { "government": "₹0 - ₹1,500", "trust": "₹25,000 - ₹42,000", "private": "₹60,000 - ₹1,10,000" }
+      },
+      "hidden_costs": [
+        "Micro-discectomy specialized tubular retractor usage fee",
+        "Lumbosacral rigid support corset belt"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "Neurosurgery / Spine Package", "eligibility": "PM-JAY cardholders." }
+      ]
+    },
+    {
+      "id": "p37",
+      "name": "Coronary Angioplasty (Double Stent)",
+      "category": "Cardiology",
+      "description": "Placement of two drug-eluting stents to unblock two distinct cardiac coronary arteries.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹15,000", "trust": "₹95,000 - ₹1,30,000", "private": "₹2,00,000 - ₹3,30,000" },
+        "tier2": { "government": "₹0 - ₹8,000", "trust": "₹75,000 - ₹1,00,000", "private": "₹1,50,000 - ₹2,40,000" },
+        "tier3": { "government": "₹0 - ₹4,000", "trust": "₹55,000 - ₹75,000", "private": "₹1,10,000 - ₹1,70,000" }
+      },
+      "hidden_costs": [
+        "Second drug-eluting stent (DES) ceiling price cap billing",
+        "Intravascular Ultrasound (IVUS) image guidance catheter fee"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat / State Aarogyasri", "coverage": "Multi-stent Cardiology Package", "eligibility": "Pre-approved BPL cardholders." }
+      ]
+    },
+    {
+      "id": "p38",
+      "name": "Neonatal ICU Admission (NICU - Per Day)",
+      "category": "Pediatrics",
+      "description": "Intensive care monitoring for premature babies, respiratory distress, or jaundice.",
+      "costs": {
+        "tier1": { "government": "₹0", "trust": "₹2,000 - ₹4,500", "private": "₹7,000 - ₹18,000" },
+        "tier2": { "government": "₹0", "trust": "₹1,500 - ₹3,000", "private": "₹4,500 - ₹12,000" },
+        "tier3": { "government": "₹0", "trust": "₹1,000 - ₹2,000", "private": "₹3,000 - ₹7,500" }
+      },
+      "hidden_costs": [
+        "Surfactant lung therapy single-dose vials (₹15,000 - ₹30,000)",
+        "Phototherapy lamp unit charges per session for jaundice"
+      ],
+      "schemes": [
+        { "name": "Janani Shishu Suraksha Karyakram (JSSK)", "coverage": "100% Free Sick Neonate Care", "eligibility": "All infants up to 1 year treated in government hospitals." }
+      ]
+    },
+    {
+      "id": "p39",
+      "name": "Ventilator Support Stay (Per Day)",
+      "category": "General Medicine",
+      "description": "Mechanical ventilation support in ICU for severe acute respiratory failure.",
+      "costs": {
+        "tier1": { "government": "₹0", "trust": "₹3,000 - ₹6,000", "private": "₹12,000 - ₹30,000" },
+        "tier2": { "government": "₹0", "trust": "₹2,000 - ₹4,000", "private": "₹8,000 - ₹20,000" },
+        "tier3": { "government": "₹0", "trust": "₹1,200 - ₹2,500", "private": "₹5,000 - ₹12,000" }
+      },
+      "hidden_costs": [
+        "Daily Arterial Blood Gas (ABG) monitoring lab tests",
+        "Endotracheal tube disposable suction catheters"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "ICU with Ventilator Package", "eligibility": "BPL cardholders." }
+      ]
+    },
+    {
+      "id": "p40",
+      "name": "Endoscopy (Upper GI)",
+      "category": "Diagnostics",
+      "description": "Flexible scope insertion down esophagus to examine stomach lining and ulcers.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹300", "trust": "₹1,200 - ₹2,500", "private": "₹3,500 - ₹8,000" },
+        "tier2": { "government": "₹0 - ₹200", "trust": "₹900 - ₹1,800", "private": "₹2,500 - ₹5,500" },
+        "tier3": { "government": "₹0", "trust": "₹600 - ₹1,200", "private": "₹1,800 - ₹3,800" }
+      },
+      "hidden_costs": [
+        "Biopsy forcep disposable tissue sampling charges",
+        "H. Pylori rapid urease test kit"
+      ],
+      "schemes": [
+        { "name": "Free Diagnostic Services Scheme", "coverage": "Free OPD Endoscopy", "eligibility": "Government hospital referrals." }
+      ]
+    },
+    {
+      "id": "p41",
+      "name": "Colonoscopy (Lower GI)",
+      "category": "Diagnostics",
+      "description": "Flexible scope examination of large intestine to detect polyps, colitis, or bleeding.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹500", "trust": "₹2,500 - ₹4,500", "private": "₹6,000 - ₹14,000" },
+        "tier2": { "government": "₹0 - ₹300", "trust": "₹1,800 - ₹3,200", "private": "₹4,200 - ₹9,500" },
+        "tier3": { "government": "₹0", "trust": "₹1,200 - ₹2,200", "private": "₹3,000 - ₹6,500" }
+      },
+      "hidden_costs": [
+        "Bowel preparation solution kit given pre-procedure",
+        "Polypectomy snare wire charges if polyp is removed during scan"
+      ],
+      "schemes": [
+        { "name": "Free Diagnostics Scheme", "coverage": "Subsidized Diagnostics", "eligibility": "District hospital referral." }
+      ]
+    },
+    {
+      "id": "p42",
+      "name": "Root Canal Treatment (RCT - Per Tooth)",
+      "category": "Dental",
+      "description": "Dental procedure removing infected tooth pulp, cleaning, and sealing the root.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹200", "trust": "₹1,000 - ₹2,000", "private": "₹3,500 - ₹8,500" },
+        "tier2": { "government": "₹0 - ₹100", "trust": "₹700 - ₹1,400", "private": "₹2,500 - ₹5,500" },
+        "tier3": { "government": "₹0", "trust": "₹500 - ₹1,000", "private": "₹1,800 - ₹3,500" }
+      },
+      "hidden_costs": [
+        "Dental Crown/Cap cost (Zirconia vs PFM cap ranges from ₹2,000 to ₹12,000)",
+        "Post and core build-up procedure if tooth is heavily broken"
+      ],
+      "schemes": [
+        { "name": "Government Dental College Clinics", "coverage": "100% Free / Nominal token fee", "eligibility": "Open to all general public walking into OPD." }
+      ]
+    },
+    {
+      "id": "p43",
+      "name": "Fistula Surgery (Fistulotomy)",
+      "category": "General Surgery",
+      "description": "Surgical opening and drainage of an anal fistula tract.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹1,500", "trust": "₹15,000 - ₹26,000", "private": "₹38,000 - ₹75,000" },
+        "tier2": { "government": "₹0 - ₹800", "trust": "₹11,000 - ₹18,000", "private": "₹26,000 - ₹50,000" },
+        "tier3": { "government": "₹0 - ₹400", "trust": "₹8,000 - ₹13,000", "private": "₹18,000 - ₹35,000" }
+      },
+      "hidden_costs": [
+        "VAAFT (Video-Assisted Anal Fistula Treatment) scope usage fees",
+        "Seton thread placement and secondary adjustment visits"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat / State Aarogyasri", "coverage": "Surgical Package", "eligibility": "BPL cardholders." }
+      ]
+    },
+    {
+      "id": "p44",
+      "name": "Thyroidectomy (Total / Subtotal)",
+      "category": "General Surgery",
+      "description": "Surgical removal of all or part of the thyroid gland for goiter or thyroid cancer.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹3,000", "trust": "₹22,000 - ₹38,000", "private": "₹55,000 - ₹1,10,000" },
+        "tier2": { "government": "₹0 - ₹1,500", "trust": "₹16,000 - ₹28,000", "private": "₹40,000 - ₹75,000" },
+        "tier3": { "government": "₹0 - ₹800", "trust": "₹11,000 - ₹19,000", "private": "₹28,000 - ₹50,000" }
+      },
+      "hidden_costs": [
+        "Intra-operative Recurrent Laryngeal Nerve monitor probe fees",
+        "Lifelong Thyroxine hormone tablet supplementation"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "Endocrine Surgery Package", "eligibility": "PM-JAY e-card holders." }
+      ]
+    },
+    {
+      "id": "p45",
+      "name": "Normal Brain CT Scan (Head Trauma)",
+      "category": "Diagnostics",
+      "description": "Emergency non-contrast CT scan to rule out skull fractures or intracranial brain bleeds.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹500", "trust": "₹1,200 - ₹2,200", "private": "₹2,800 - ₹5,500" },
+        "tier2": { "government": "₹0 - ₹300", "trust": "₹900 - ₹1,600", "private": "₹2,000 - ₹4,000" },
+        "tier3": { "government": "₹0", "trust": "₹600 - ₹1,100", "private": "₹1,500 - ₹2,800" }
+      },
+      "hidden_costs": [
+        "3D skull reconstruction software processing charge",
+        "Emergency night-shift radiologist reading surcharges"
+      ],
+      "schemes": [
+        { "name": "Trauma Care Emergency Free Scheme", "coverage": "Free Emergency Diagnostics", "eligibility": "Road accident and trauma victims in government hospitals." }
+      ]
+    },
+    {
+      "id": "p46",
+      "name": "Rabies Post-Exposure Prophylaxis (PEP)",
+      "category": "Infectious Diseases",
+      "description": "Vaccine and immunoglobulin injections after animal bites to prevent fatal rabies infection.",
+      "costs": {
+        "tier1": { "government": "₹0", "trust": "₹1,200 - ₹2,500", "private": "₹3,500 - ₹7,000" },
+        "tier2": { "government": "₹0", "trust": "₹1,000 - ₹2,000", "private": "₹2,800 - ₹5,000" },
+        "tier3": { "government": "₹0", "trust": "₹800 - ₹1,500", "private": "₹2,000 - ₹3,800" }
+      },
+      "hidden_costs": [
+        "Human Rabies Immunoglobulin (HRIG) weight-based vial cost",
+        "Wound surgical cleaning and tetanus toxoid booster shot"
+      ],
+      "schemes": [
+        { "name": "National Rabies Control Programme (NRCP)", "coverage": "100% Free Rabies Vaccine & Rig", "eligibility": "Open to all bite victims at government dispensaries and anti-rabies clinics." }
+      ]
+    },
+    {
+      "id": "p47",
+      "name": "Acute Appendicitis Medical Management",
+      "category": "General Medicine",
+      "description": "Inpatient intravenous antibiotic therapy for mild unruptured appendicitis without surgery.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹1,000", "trust": "₹8,000 - ₹15,000", "private": "₹22,000 - ₹40,000" },
+        "tier2": { "government": "₹0 - ₹500", "trust": "₹6,000 - ₹11,000", "private": "₹15,000 - ₹28,000" },
+        "tier3": { "government": "₹0", "trust": "₹4,000 - ₹7,000", "private": "₹10,000 - ₹18,000" }
+      },
+      "hidden_costs": [
+        "Repeated abdominal ultrasound scans to monitor swelling",
+        "Emergency shift to surgery package if medical trial fails"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat (PM-JAY)", "coverage": "Conservative Medical Admission Package", "eligibility": "BPL cardholders." }
+      ]
+    },
+    {
+      "id": "p48",
+      "name": "Blood Transfusion (Single PRBC Unit)",
+      "category": "Hematology",
+      "description": "Transfusion of concentrated red blood cells for severe anemia or hemorrhage.",
+      "costs": {
+        "tier1": { "government": "₹0", "trust": "₹800 - ₹1,500", "private": "₹2,500 - ₹5,000" },
+        "tier2": { "government": "₹0", "trust": "₹600 - ₹1,200", "private": "₹1,800 - ₹3,800" },
+        "tier3": { "government": "₹0", "trust": "₹400 - ₹800", "private": "₹1,200 - ₹2,500" }
+      },
+      "hidden_costs": [
+        "NAT (Nucleic Acid Testing) blood safety screening test upgrades",
+        "Cross-matching and blood bag tubing consumables"
+      ],
+      "schemes": [
+        { "name": "National Blood Transfusion Council (NBTC)", "coverage": "Free Blood for Thalassemia & BPL", "eligibility": "Thalassemia patients, hemophiliacs, and BPL cardholders." }
+      ]
+    },
+    {
+      "id": "p49",
+      "name": "Dialysis AV Fistula Creation",
+      "category": "Vascular Surgery",
+      "description": "Surgical connection of an artery to a vein in arm to create durable access for kidney dialysis.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹1,500", "trust": "₹12,000 - ₹22,000", "private": "₹28,000 - ₹55,000" },
+        "tier2": { "government": "₹0 - ₹800", "trust": "₹9,000 - ₹16,000", "private": "₹20,000 - ₹38,000" },
+        "tier3": { "government": "₹0 - ₹400", "trust": "₹6,000 - ₹11,000", "private": "₹14,000 - ₹25,000" }
+      },
+      "hidden_costs": [
+        "Vascular Doppler mapping ultrasound test pre-surgery",
+        "Temporary temporary subclavian dialysis catheter placement if fistula isn't mature"
+      ],
+      "schemes": [
+        { "name": "Pradhan Mantri National Dialysis Programme", "coverage": "Vascular Access Surgery Package", "eligibility": "CKD stage 5 dialysis patients." }
+      ]
+    },
+    {
+      "id": "p50",
+      "name": "Skin Grafting (Burn Wounds / Ulcers)",
+      "category": "Plastic Surgery",
+      "description": "Surgical transplantation of healthy skin to cover severe burn or traumatic wound.",
+      "costs": {
+        "tier1": { "government": "₹0 - ₹3,000", "trust": "₹25,000 - ₹45,000", "private": "₹60,000 - ₹1,30,000" },
+        "tier2": { "government": "₹0 - ₹1,500", "trust": "₹18,000 - ₹32,000", "private": "₹42,000 - ₹90,000" },
+        "tier3": { "government": "₹0 - ₹800", "trust": "₹12,000 - ₹22,000", "private": "₹28,000 - ₹60,000" }
+      },
+      "hidden_costs": [
+        "Dermatome blade disposable equipment fees",
+        "Specialized non-adherent silicone dressing mesh sheets"
+      ],
+      "schemes": [
+        { "name": "Ayushman Bharat / State Aarogyasri", "coverage": "Burns & Reconstructive Package", "eligibility": "PM-JAY e-card holders." }
+      ]
+    }
+  ]
+}
