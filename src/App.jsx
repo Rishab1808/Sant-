@@ -45,7 +45,32 @@ const mockHospitals = [
   { id: 38, name: 'Amrita Trust', type: 'trust', lat: 10.0312, lng: 76.3273, color: '#2563eb' },
   { id: 39, name: 'Aster Medcity', type: 'private', lat: 10.0612, lng: 76.2573, color: '#475569' }
 ]
+const formatWhatsAppMessage = (procedureName, cityTier, costs, schemes, hospitals) => {
+  let message = `*Procedure:* ${procedureName}\n`;
+  message += `*City/Tier:* ${cityTier}\n\n`;
+  
+  message += `*Cost Breakdown:*\n`;
+  message += `- Government: ₹${costs.govt}\n`;
+  message += `- Trust: ₹${costs.trust}\n`;
+  message += `- Private: ₹${costs.private}\n\n`;
+  
+  message += `*Applicable Government Schemes:*\n`;
+  if (schemes && schemes.length > 0) {
+    schemes.forEach(scheme => {
+      message += `- ${scheme}\n`;
+    });
+  } else {
+    message += `- None found\n`;
+  }
+  message += `\n*Available Hospitals:*\n`;
+  
+  hospitals.forEach(hospital => {
+    message += `🏥 ${hospital.name}\n`;
+    message += `📍 https://maps.google.com/?q=${hospital.lat},${hospital.lng || 0}\n\n`;
+  });
 
+  return `https://wa.me/?text=${encodeURIComponent(message)}`;
+};
 const cityCoordinates = {
   'hyderabad': [17.3850, 78.4867],
   'mumbai': [19.0760, 72.8777],
@@ -716,7 +741,27 @@ function App() {
                 </div>
               </div>
             </div>
-
+{/* WHATSAPP BUTTON */}
+              <div className="pt-4 border-t border-slate-100 mt-4">
+                <button 
+                  onClick={() => {
+                    const procedureName = activeModal.name;
+                    const cityOrTier = selectedTier.replace('tier', 'Tier ');
+                    const costs = {
+                      govt: activeModal.costs?.[selectedTier]?.government || 'N/A',
+                      trust: activeModal.costs?.[selectedTier]?.trust || 'N/A',
+                      private: activeModal.costs?.[selectedTier]?.private || 'N/A'
+                    };
+                    const schemesList = activeModal.schemes?.map(s => s.name) || [];
+                    
+                    const link = formatWhatsAppMessage(procedureName, cityOrTier, costs, schemesList, mockHospitals);
+                    window.open(link, '_blank');
+                  }}
+                  className="w-full py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold transition-colors flex items-center justify-center gap-2 shadow-sm"
+                >
+                  Share to WhatsApp
+                </button>
+              </div>
             {/* Sticky Footer Calculator */}
             <div className="shrink-0 sticky bottom-0 bg-slate-900 rounded-b-2xl p-5 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.1)] z-20">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
