@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Search, ShieldAlert, MapPin, Info, X, CheckCircle2, AlertTriangle, Map as MapIcon, List, Building2, HeartHandshake, Navigation } from 'lucide-react'
+import { Search, ShieldAlert, MapPin, Info, X, CheckCircle2, AlertTriangle, Map as MapIcon, List, Building2, HeartHandshake, Navigation, Calculator, Tag } from 'lucide-react'
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import data from '../healthcare_data.json'
@@ -63,6 +63,82 @@ const cityCoordinates = {
   'kochi': [9.9312, 76.2673]
 }
 
+const categoryKeywords = {
+  'cardiology': ['heart', 'chest pain', 'cardiac', 'breathlessness', 'palpitations', 'attack', 'stroke', 'blocked', 'artery', 'bp', 'blood pressure'],
+  'surgery': ['stomach', 'belly', 'abdomen', 'pain', 'cut', 'operation', 'lump'],
+  'general surgery': ['stomach', 'belly', 'abdomen', 'pain', 'cut', 'operation', 'lump', 'gallstones', 'hernia', 'groin', 'piles', 'bleeding'],
+  'general medicine': ['fever', 'infection', 'sick', 'weakness', 'cough', 'breathing', 'virus', 'bacteria', 'disease'],
+  'ophthalmology': ['eye', 'vision', 'blurry', 'blind', 'sight', 'glasses', 'cataract', 'retina', 'specs'],
+  'diagnostics': ['test', 'scan', 'imaging', 'report', 'x-ray', 'xray', 'checkup', 'machine'],
+  'orthopedics': ['bone', 'joint', 'pain', 'fracture', 'broken', 'spine', 'back', 'knee', 'hip', 'ligament', 'slip disc', 'sciatica'],
+  'obstetrics': ['pregnancy', 'baby', 'birth', 'delivery', 'maternity', 'labor', 'pregnant', 'childbirth'],
+  'gynecology': ['uterus', 'womb', 'period', 'bleeding', 'cyst', 'ovary', 'fibroid', 'women', 'female'],
+  'nephrology': ['kidney', 'renal', 'urine', 'pee', 'dialysis', 'failure'],
+  'urology': ['urine', 'pee', 'prostate', 'stone', 'kidney stone', 'bladder'],
+  'oncology': ['cancer', 'tumor', 'chemo', 'radiation', 'malignant', 'carcinoma', 'lump'],
+  'ent': ['ear', 'nose', 'throat', 'hearing', 'deaf', 'tonsils', 'swallowing', 'eardrum'],
+  'dental': ['tooth', 'teeth', 'toothache', 'cavity', 'decay', 'gums', 'dentist'],
+  'pulmonology': ['lungs', 'breathing', 'cough', 'asthma', 'breath', 'chest'],
+  'pediatrics': ['baby', 'infant', 'newborn', 'child', 'kid', 'nicu'],
+  'infectious diseases': ['bite', 'dog', 'animal', 'rabies', 'virus', 'infection'],
+  'hematology': ['blood', 'anemia', 'hemoglobin', 'weakness'],
+  'plastic surgery': ['burn', 'skin', 'wound', 'scar', 'reconstruction', 'graft'],
+  'vascular surgery': ['vein', 'artery', 'blood vessel', 'dialysis access']
+};
+
+const procedureKeywords = {
+  'p1': ['belly ache', 'stomach pain', 'burst appendix', 'right side pain', 'appendicitis'],
+  'p2': ['mosquito', 'platelets', 'bone breaking fever', 'severe fever', 'dengue'],
+  'p3': ['cloudy eye', 'cataract', 'white eye', 'lens replacement'],
+  'p4': ['brain scan', 'spine scan', 'mri', 'magnetic resonance', 'head scan'],
+  'p5': ['knee pain', 'cannot walk', 'joint replacement', 'tkr', 'artificial knee'],
+  'p6': ['heart attack', 'stent', 'blockage', 'chest pain', 'clogged artery', 'balloon'],
+  'p7': ['normal delivery', 'childbirth', 'labor pain', 'having a baby', 'vaginal birth'],
+  'p8': ['gallstones', 'gallbladder', 'stomach pain', 'stone in belly', 'laparoscopy'],
+  'p9': ['c-section', 'cesarean', 'operation delivery', 'surgical birth', 'stomach cut baby'],
+  'p10': ['bypass', 'open heart', 'heart attack', 'major blockage', 'cabg'],
+  'p11': ['kidney failure', 'blood cleaning', 'ckd', 'dialysis machine'],
+  'p12': ['kidney failure', 'organ transplant', 'new kidney', 'donor kidney'],
+  'p13': ['cancer treatment', 'chemo', 'tumor shrinking', 'hair loss', 'cancer drugs'],
+  'p14': ['cancer treatment', 'radiation', 'tumor burning', 'radiotherapy'],
+  'p15': ['stomach scan', 'belly scan', 'ct scan', 'computed tomography'],
+  'p16': ['heart scan', 'echo', 'heart ultrasound', 'valve test', 'echocardiogram'],
+  'p17': ['hip pain', 'fractured hip', 'hip joint', 'cannot walk', 'broken hip', 'thr'],
+  'p18': ['sports injury', 'torn ligament', 'knee popping', 'acl', 'keyhole knee'],
+  'p19': ['sore throat', 'tonsils', 'swallowing pain', 'throat operation'],
+  'p20': ['hole in ear', 'eardrum', 'hearing loss', 'ear discharge', 'tympanoplasty'],
+  'p21': ['kidney stone', 'laser stone', 'pain in side', 'blood in urine', 'stone removal'],
+  'p22': ['prostate', 'difficulty peeing', 'old man pee', 'frequent urination', 'turp'],
+  'p23': ['groin lump', 'hernia', 'bulge in stomach', 'mesh repair'],
+  'p24': ['piles', 'haemorrhoids', 'bleeding while pooping', 'painful sitting', 'laser piles'],
+  'p25': ['pneumonia', 'lung infection', 'heavy breathing', 'cough with phlegm', 'chest infection'],
+  'p26': ['heart test', 'angiogram', 'check for blockages', 'cath lab', 'dye test heart'],
+  'p27': ['slow heartbeat', 'fainting', 'pacemaker', 'heart rhythm', 'battery for heart'],
+  'p28': ['remove glasses', 'lasik', 'laser eye', 'specs removal', 'vision correction'],
+  'p29': ['retinal detachment', 'eye bleeding', 'dark spots in vision', 'vitrectomy', 'floaters'],
+  'p30': ['typhoid', 'high fever', 'water borne', 'salmonella', 'prolonged fever'],
+  'p31': ['diabetic foot', 'foot ulcer', 'wound not healing', 'black toe', 'sugar wound'],
+  'p32': ['breast cancer', 'breast removal', 'lump in breast', 'mastectomy', 'tumor excision'],
+  'p33': ['cancer spread test', 'pet scan', 'whole body scan', 'pet ct', 'nuclear scan'],
+  'p34': ['uterus removal', 'heavy periods', 'fibroids', 'hysterectomy', 'womb removal'],
+  'p35': ['ovary lump', 'ovarian cyst', 'pelvic pain', 'water bag', 'cyst removal'],
+  'p36': ['slip disc', 'sciatica', 'lower back pain', 'leg pain shooting', 'spine surgery', 'discectomy'],
+  'p37': ['two stents', 'double blockage', 'heart attack', 'multiple blockages'],
+  'p38': ['nicu', 'premature baby', 'baby in glass box', 'jaundice baby', 'sick newborn'],
+  'p39': ['ventilator', 'life support', 'can\'t breathe', 'icu machine', 'breathing tube'],
+  'p40': ['endoscopy', 'stomach tube', 'acidity', 'ulcer', 'vomiting blood', 'camera in throat'],
+  'p41': ['colonoscopy', 'bowel test', 'blood in stool', 'large intestine tube', 'rectum camera'],
+  'p42': ['rct', 'root canal', 'severe toothache', 'decayed tooth', 'dental nerve'],
+  'p43': ['fistula', 'pus from bum', 'anal pain', 'fistulotomy', 'anal tract'],
+  'p44': ['thyroid', 'goiter', 'neck swelling', 'thyroid cancer', 'throat lump'],
+  'p45': ['head injury', 'brain bleed', 'accident head scan', 'head ct', 'skull fracture'],
+  'p46': ['dog bite', 'monkey bite', 'rabies', 'anti rabies injection', 'animal bite'],
+  'p47': ['appendix without surgery', 'mild appendicitis', 'stomach pain antibiotics', 'appendix medicine'],
+  'p48': ['blood transfusion', 'low blood', 'blood bag', 'hb low', 'severe anemia'],
+  'p49': ['av fistula', 'dialysis prep', 'vein surgery for dialysis', 'arm vein connection'],
+  'p50': ['skin grafting', 'burn treatment', 'acid attack', 'skin peeling', 'new skin']
+};
+
 function MapFlyTo({ coords }) {
   const map = useMap()
   if (coords) {
@@ -70,6 +146,69 @@ function MapFlyTo({ coords }) {
   }
   return null
 }
+
+const getHiddenCostValue = (text, privateCostRangeString) => {
+  let hash = 0;
+  for (let i = 0; i < text.length; i++) {
+    hash = text.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const percentage = 6 + (Math.abs(hash) % 10);
+  let baseCost = 20000;
+  if (privateCostRangeString && privateCostRangeString !== 'N/A') {
+    const matches = privateCostRangeString.replace(/,/g, '').match(/\d+/g);
+    if (matches && matches.length >= 1) {
+      baseCost = parseInt(matches[0], 10);
+    }
+  }
+  const rawValue = (baseCost * percentage) / 100;
+  return Math.max(500, Math.round(rawValue / 100) * 100);
+};
+
+const parseCostRange = (costString) => {
+  if (!costString || costString === 'N/A') return [0, 0];
+  const matches = costString.replace(/,/g, '').match(/\d+/g);
+  if (!matches) return [0, 0];
+  if (matches.length === 1) return [parseInt(matches[0], 10), parseInt(matches[0], 10)];
+  return [parseInt(matches[0], 10), parseInt(matches[1], 10)];
+};
+
+const escapeRegExp = (string) => {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+};
+
+const getStemmedTerm = (word) => {
+  const lower = word.toLowerCase();
+  if (lower.length <= 3) return lower; 
+  if (lower.endsWith('ss')) return lower; 
+  if (lower.endsWith('s')) return lower.slice(0, -1); 
+  return lower;
+};
+
+const HighlightText = ({ text, highlight }) => {
+  if (!highlight.trim()) return <>{text}</>;
+  
+  const searchTokens = highlight.trim().split(/\s+/).filter(Boolean).map(w => {
+    const escapedWord = escapeRegExp(w);
+    const escapedStem = escapeRegExp(getStemmedTerm(w));
+    return `\\b${escapedWord}\\b|\\b${escapedStem}\\b`;
+  });
+
+  if (searchTokens.length === 0) return <>{text}</>;
+
+  const combinedRegex = new RegExp(`(${searchTokens.join('|')})`, 'gi');
+  const parts = text.split(combinedRegex);
+  
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (part && new RegExp(`^(${searchTokens.join('|')})$`, 'i').test(part)) {
+          return <span key={i} className="bg-yellow-200 text-yellow-900 rounded-sm px-0.5">{part}</span>;
+        }
+        return <span key={i}>{part}</span>;
+      })}
+    </>
+  );
+};
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -83,14 +222,42 @@ function App() {
   const [isLocating, setIsLocating] = useState(false)
   const [customCity, setCustomCity] = useState('')
   
-  // New states for the suggestions dropdown
   const [suggestions, setSuggestions] = useState([])
   const [showSuggestions, setShowSuggestions] = useState(false)
 
-  const filteredProcedures = data.procedures.filter(procedure => 
-    procedure.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    procedure.category.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  const [checkedExtras, setCheckedExtras] = useState([])
+
+  useEffect(() => {
+    setCheckedExtras([])
+  }, [activeModal, selectedTier])
+
+  const filteredProcedures = data.procedures.filter(procedure => {
+    const searchString = searchTerm.toLowerCase().trim();
+    if (!searchString) return true; 
+
+    const catKeywords = categoryKeywords[procedure.category.toLowerCase()] || [];
+    const procKeywords = procedureKeywords[procedure.id] || [];
+
+    const searchableText = `
+      ${procedure.name}
+      ${procedure.category}
+      ${procedure.description}
+      ${catKeywords.join(' ')}
+      ${procKeywords.join(' ')}
+    `.toLowerCase();
+
+    const searchWords = searchString.split(/\s+/).filter(Boolean);
+    
+    const matchesAllWords = searchWords.every(word => {
+      const searchBase = getStemmedTerm(word);
+      const regexWord = new RegExp(`\\b${escapeRegExp(word)}\\b`, 'i');
+      const regexBase = new RegExp(`\\b${escapeRegExp(searchBase)}\\b`, 'i');
+      
+      return regexWord.test(searchableText) || regexBase.test(searchableText);
+    });
+    
+    return matchesAllWords;
+  });
 
   const handleLocateMe = () => {
     setIsLocating(true)
@@ -112,13 +279,11 @@ function App() {
     }
   }
 
-  // Handle typing in the city input box
   const handleCityInputChange = (e) => {
     const val = e.target.value
     setCustomCity(val)
     
     if (val.trim()) {
-      // Filter cities that include the typed letters
       const filtered = Object.keys(cityCoordinates).filter(city => 
         city.toLowerCase().includes(val.toLowerCase())
       )
@@ -130,7 +295,6 @@ function App() {
     }
   }
 
-  // Handle clicking a city from the dropdown
   const handleSuggestionClick = (cityKey) => {
     const formattedCity = cityKey.charAt(0).toUpperCase() + cityKey.slice(1)
     setCustomCity(formattedCity)
@@ -138,7 +302,6 @@ function App() {
     setFlyLocation(cityCoordinates[cityKey])
   }
 
-  // Fallback for clicking "Go" or hitting Enter
   const handleCitySearch = () => {
     const searchStr = customCity.toLowerCase().trim()
     if (!searchStr) return;
@@ -154,6 +317,19 @@ function App() {
     } else {
       alert("City not found! Try typing the first few letters of major cities like Mumbai, Delhi, Jaipur, or Kochi.")
     }
+  }
+
+  let baseMin = 0;
+  let baseMax = 0;
+  let extraCostsTotal = 0;
+  
+  const privateCostStr = activeModal?.costs?.[selectedTier]?.private || '0';
+
+  if (activeModal) {
+    [baseMin, baseMax] = parseCostRange(privateCostStr);
+    checkedExtras.forEach(idx => {
+      extraCostsTotal += getHiddenCostValue(activeModal.hidden_costs[idx], privateCostStr);
+    });
   }
 
   return (
@@ -200,7 +376,7 @@ function App() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
               <input 
                 type="text" 
-                placeholder="Search procedures..."
+                placeholder="Try searching 'hearts', 'vomitings', or 'cataract'..."
                 className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -223,58 +399,128 @@ function App() {
 
       <main className={`max-w-6xl w-full mx-auto px-4 ${viewMode === 'map' ? 'flex-1 flex flex-col py-4 min-h-0' : 'py-8'}`}>
         {viewMode === 'list' ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProcedures.map((procedure) => (
-              <div key={procedure.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col hover:shadow-md transition-shadow">
-                <div className="flex-1">
-                  <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-1 rounded-md mb-3 inline-block">
-                    {procedure.category}
-                  </span>
-                  <h3 className="text-xl font-bold mb-2">{procedure.name}</h3>
-                  <p className="text-slate-600 mb-6 text-sm line-clamp-3">{procedure.description}</p>
+          <>
+            {/* NEW: Search Results Counter Badge */}
+            {searchTerm.trim() !== '' && filteredProcedures.length > 0 && (
+              <div className="mb-6 flex items-center gap-3">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-700 text-sm font-semibold shadow-sm">
+                  <Search className="w-4 h-4 text-indigo-500" />
+                  {filteredProcedures.length} {filteredProcedures.length === 1 ? 'Result' : 'Results'}
                 </div>
-                
-                <div className="pt-4 border-t border-slate-100 flex flex-col gap-2.5 mb-6">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-500 flex items-center gap-1.5">
-                      <Building2 className="w-4 h-4 text-green-600" /> Govt Est:
-                    </span>
-                    <span className="font-bold text-green-700">{procedure.costs?.[selectedTier]?.government || 'N/A'}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-500 flex items-center gap-1.5">
-                      <HeartHandshake className="w-4 h-4 text-blue-500" /> Trust/Charity:
-                    </span>
-                    <span className="font-bold text-blue-700">{procedure.costs?.[selectedTier]?.trust || 'N/A'}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-500 flex items-center gap-1.5">
-                      <MapPin className="w-4 h-4 text-slate-600" /> Private:
-                    </span>
-                    <span className="font-bold text-lg text-slate-900">{procedure.costs?.[selectedTier]?.private || 'N/A'}</span>
-                  </div>
-                </div>
-                
-                <div className="mt-auto flex flex-col gap-3">
-                  <button 
-                    onClick={() => setActiveModal(procedure)}
-                    className="w-full py-2.5 bg-slate-900 text-white rounded-xl font-medium hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
-                  >
-                    <Info className="w-4 h-4" /> Analyze Costs & Schemes
-                  </button>
-                  <button 
-                    onClick={() => {
-                      setActiveMapProcedure(procedure)
-                      setViewMode('map')
-                    }}
-                    className="w-full py-2.5 bg-blue-50 text-blue-700 border border-blue-200 rounded-xl font-medium hover:bg-blue-100 transition-colors flex items-center justify-center gap-2"
-                  >
-                    <MapIcon className="w-4 h-4" /> View Facilities on Map
-                  </button>
-                </div>
+                <p className="text-sm text-slate-500 font-medium">
+                  found for <span className="text-slate-800 font-bold">"{searchTerm}"</span>
+                </p>
               </div>
-            ))}
-          </div>
+            )}
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredProcedures.length > 0 ? (
+                filteredProcedures.map((procedure) => {
+                  const searchString = searchTerm.toLowerCase().trim();
+                  let showHiddenBadge = false;
+                  let matchedKeyword = '';
+
+                  if (searchString) {
+                    const visibleText = `${procedure.name} ${procedure.category} ${procedure.description}`.toLowerCase();
+                    const searchWords = searchString.split(/\s+/).filter(Boolean);
+                    
+                    const isVisible = searchWords.every(word => {
+                       const searchBase = getStemmedTerm(word);
+                       const regexWord = new RegExp(`\\b${escapeRegExp(word)}\\b`, 'i');
+                       const regexBase = new RegExp(`\\b${escapeRegExp(searchBase)}\\b`, 'i');
+                       return regexWord.test(visibleText) || regexBase.test(visibleText);
+                    });
+                    
+                    if (!isVisible) {
+                      showHiddenBadge = true;
+                      
+                      const catKeywords = categoryKeywords[procedure.category.toLowerCase()] || [];
+                      const procKeywords = procedureKeywords[procedure.id] || [];
+                      const allHidden = [...catKeywords, ...procKeywords];
+                      
+                      const foundKeyword = allHidden.find(kw => {
+                         return searchWords.some(word => {
+                           const searchBase = getStemmedTerm(word);
+                           const regexWord = new RegExp(`\\b${escapeRegExp(word)}\\b`, 'i');
+                           const regexBase = new RegExp(`\\b${escapeRegExp(searchBase)}\\b`, 'i');
+                           return regexWord.test(kw) || regexBase.test(kw);
+                         });
+                      });
+                      matchedKeyword = foundKeyword || searchString;
+                    }
+                  }
+
+                  return (
+                    <div key={procedure.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col hover:shadow-md transition-shadow relative">
+                      <div className="flex-1">
+                        <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-1 rounded-md mb-3 inline-block">
+                          <HighlightText text={procedure.category} highlight={searchTerm} />
+                        </span>
+                        <h3 className="text-xl font-bold mb-2">
+                          <HighlightText text={procedure.name} highlight={searchTerm} />
+                        </h3>
+                        <p className="text-slate-600 mb-3 text-sm line-clamp-3">
+                          <HighlightText text={procedure.description} highlight={searchTerm} />
+                        </p>
+                        
+                        {showHiddenBadge && (
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-4 rounded-md bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-medium">
+                            <Tag className="w-3 h-3" />
+                            Matches symptom: <span className="font-bold capitalize">{matchedKeyword}</span>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="pt-4 border-t border-slate-100 flex flex-col gap-2.5 mb-6">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium text-slate-500 flex items-center gap-1.5">
+                            <Building2 className="w-4 h-4 text-green-600" /> Govt Est:
+                          </span>
+                          <span className="font-bold text-green-700">{procedure.costs?.[selectedTier]?.government || 'N/A'}</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium text-slate-500 flex items-center gap-1.5">
+                            <HeartHandshake className="w-4 h-4 text-blue-500" /> Trust/Charity:
+                          </span>
+                          <span className="font-bold text-blue-700">{procedure.costs?.[selectedTier]?.trust || 'N/A'}</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium text-slate-500 flex items-center gap-1.5">
+                            <MapPin className="w-4 h-4 text-slate-600" /> Private:
+                          </span>
+                          <span className="font-bold text-lg text-slate-900">{procedure.costs?.[selectedTier]?.private || 'N/A'}</span>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-auto flex flex-col gap-3">
+                        <button 
+                          onClick={() => setActiveModal(procedure)}
+                          className="w-full py-2.5 bg-slate-900 text-white rounded-xl font-medium hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
+                        >
+                          <Info className="w-4 h-4" /> Analyze Costs & Schemes
+                        </button>
+                        <button 
+                          onClick={() => {
+                            setActiveMapProcedure(procedure)
+                            setViewMode('map')
+                          }}
+                          className="w-full py-2.5 bg-blue-50 text-blue-700 border border-blue-200 rounded-xl font-medium hover:bg-blue-100 transition-colors flex items-center justify-center gap-2"
+                        >
+                          <MapIcon className="w-4 h-4" /> View Facilities on Map
+                        </button>
+                      </div>
+                    </div>
+                  )
+                })
+              ) : (
+                <div className="col-span-full py-12 text-center">
+                  <ShieldAlert className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+                  <h3 className="text-lg font-bold text-slate-700">No procedures found</h3>
+                  <p className="text-slate-500">Try searching for different symptoms or body parts.</p>
+                </div>
+              )}
+            </div>
+          </>
         ) : (
           <div className="flex flex-col gap-4 flex-1 min-h-0">
             <div className="shrink-0 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -286,7 +532,6 @@ function App() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="flex gap-2 w-full sm:w-auto relative">
                   
-                  {/* WRAPPED INPUT FOR DROPDOWN POSITIONING */}
                   <div className="relative w-full sm:w-48">
                     <input 
                       type="text" 
@@ -295,12 +540,10 @@ function App() {
                       value={customCity}
                       onChange={handleCityInputChange}
                       onFocus={() => { if(customCity.trim() && suggestions.length > 0) setShowSuggestions(true) }}
-                      // Delay hides dropdown so click event on <li> can fire
                       onBlur={() => setTimeout(() => setShowSuggestions(false), 200)} 
                       onKeyDown={(e) => e.key === 'Enter' && handleCitySearch()}
                     />
                     
-                    {/* DROPDOWN MENU */}
                     {showSuggestions && suggestions.length > 0 && (
                       <ul className="absolute z-50 w-full bg-white border border-slate-200 shadow-lg rounded-xl mt-1 max-h-48 overflow-y-auto">
                         {suggestions.map((city) => (
@@ -379,8 +622,10 @@ function App() {
       {/* Analysis Modal Overlay */}
       {activeModal && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
-            <div className="sticky top-0 bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between z-10">
+          <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl relative">
+            
+            {/* Modal Header */}
+            <div className="shrink-0 bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between rounded-t-2xl">
               <div>
                 <h3 className="text-xl font-bold text-slate-900">{activeModal.name}</h3>
                 <p className="text-sm text-slate-500 capitalize">{selectedTier.replace('tier', 'Tier ')} Analysis</p>
@@ -390,7 +635,9 @@ function App() {
               </button>
             </div>
             
-            <div className="p-6 space-y-6">
+            {/* Modal Scrollable Body */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+              
               <div>
                 <h4 className="font-bold text-slate-800 mb-3">Facility Cost Comparison</h4>
                 <div className="grid grid-cols-3 gap-4">
@@ -403,24 +650,60 @@ function App() {
                     <p className="font-bold text-lg text-blue-900">{activeModal.costs?.[selectedTier]?.trust || 'N/A'}</p>
                   </div>
                   <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <p className="text-xs font-semibold text-slate-700 uppercase mb-1">Private (Avg)</p>
+                    <p className="text-xs font-semibold text-slate-700 uppercase mb-1">Private (Base)</p>
                     <p className="font-bold text-lg text-slate-900">{activeModal.costs?.[selectedTier]?.private || 'N/A'}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-                <div className="flex items-start gap-3">
-                  <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-bold text-amber-900 mb-1">Hidden Costs to Verify</h4>
-                    {activeModal.hidden_costs?.length > 0 ? (
-                      <ul className="text-sm text-amber-800 list-disc list-inside space-y-1">
-                        {activeModal.hidden_costs.map((cost, idx) => <li key={idx}>{cost}</li>)}
-                      </ul>
-                    ) : <p className="text-sm text-amber-800">No specific hidden costs documented.</p>}
-                  </div>
+              {/* Interactive Hidden Costs Section */}
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <AlertTriangle className="w-5 h-5 text-amber-600" />
+                  <h4 className="font-bold text-amber-900">Interactive Hidden Costs Calculator</h4>
                 </div>
+                <p className="text-sm text-amber-800 mb-4">
+                  Check the extra variables below to see how they impact your final private hospital bill.
+                </p>
+                
+                {activeModal.hidden_costs?.length > 0 ? (
+                  <div className="space-y-3">
+                    {activeModal.hidden_costs.map((costText, idx) => {
+                      const costValue = getHiddenCostValue(costText, privateCostStr);
+                      const isChecked = checkedExtras.includes(idx);
+                      
+                      return (
+                        <label 
+                          key={idx} 
+                          className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-all ${isChecked ? 'bg-amber-100 border-amber-300 shadow-sm' : 'bg-white border-amber-200 hover:bg-amber-50'}`}
+                        >
+                          <input 
+                            type="checkbox" 
+                            className="mt-1 w-4 h-4 text-amber-600 bg-white border-amber-300 rounded focus:ring-amber-500 cursor-pointer"
+                            checked={isChecked}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setCheckedExtras([...checkedExtras, idx]);
+                              } else {
+                                setCheckedExtras(checkedExtras.filter(i => i !== idx));
+                              }
+                            }}
+                          />
+                          <div className="flex-1">
+                            <span className={`text-sm block ${isChecked ? 'text-amber-900 font-medium' : 'text-amber-800'}`}>
+                              {costText}
+                            </span>
+                          </div>
+                          <span className="text-sm font-bold text-amber-700 whitespace-nowrap bg-amber-200/50 px-2 py-1 rounded">
+                            + ₹{costValue.toLocaleString('en-IN')}
+                          </span>
+                        </label>
+                      )
+                    })}
+                  </div>
+                ) : (
+                  <p className="text-sm text-amber-800">No specific hidden costs documented.</p>
+                )}
               </div>
 
               <div>
@@ -442,6 +725,27 @@ function App() {
                 </div>
               </div>
             </div>
+
+            {/* Sticky Footer Calculator */}
+            <div className="shrink-0 sticky bottom-0 bg-slate-900 rounded-b-2xl p-5 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.1)] z-20">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="bg-slate-800 p-2 rounded-lg">
+                    <Calculator className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Total Estimated Bill (Private)</p>
+                    <p className="text-sm text-slate-300">Base Cost + {checkedExtras.length} Selected Extras</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-2xl font-bold text-white tracking-tight">
+                    ₹{(baseMin + extraCostsTotal).toLocaleString('en-IN')} - ₹{(baseMax + extraCostsTotal).toLocaleString('en-IN')}
+                  </span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       )}
