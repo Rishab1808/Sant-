@@ -5,47 +5,72 @@ import 'leaflet/dist/leaflet.css'
 import data from '../healthcare_data.json'
 
 const mockHospitals = [
-  { id: 1, name: 'Gandhi General Hospital', type: 'government', lat: 17.3950, lng: 78.4767, color: '#16a34a' },
-  { id: 2, name: 'Lions Club Trust Hospital', type: 'trust', lat: 17.3650, lng: 78.4967, color: '#2563eb' },
-  { id: 3, name: 'Apollo Premium Care', type: 'private', lat: 17.4050, lng: 78.4367, color: '#475569' },
-  { id: 4, name: 'KEM Hospital (Govt)', type: 'government', lat: 19.0560, lng: 72.8577, color: '#16a34a' },
-  { id: 5, name: 'Holy Spirit Charity', type: 'trust', lat: 19.0960, lng: 72.8977, color: '#2563eb' },
-  { id: 6, name: 'Lilavati Premium', type: 'private', lat: 19.0360, lng: 72.8277, color: '#475569' },
-  { id: 7, name: 'Safdarjung Hospital', type: 'government', lat: 28.5672, lng: 77.2010, color: '#16a34a' },
-  { id: 8, name: 'St. Stephen Trust', type: 'trust', lat: 28.6741, lng: 77.2525, color: '#2563eb' },
-  { id: 9, name: 'Max Super Speciality', type: 'private', lat: 28.6341, lng: 77.1225, color: '#475569' },
-  { id: 10, name: 'Victoria Hospital', type: 'government', lat: 12.9516, lng: 77.5746, color: '#16a34a' },
-  { id: 11, name: 'Sathya Sai Trust', type: 'trust', lat: 12.9916, lng: 77.6146, color: '#2563eb' },
-  { id: 12, name: 'Manipal Premium', type: 'private', lat: 12.9316, lng: 77.6346, color: '#475569' },
-  { id: 13, name: 'Rajiv Gandhi Govt', type: 'government', lat: 13.0827, lng: 80.2707, color: '#16a34a' },
-  { id: 14, name: 'Chennai Mission Trust', type: 'trust', lat: 13.0427, lng: 80.2207, color: '#2563eb' },
-  { id: 15, name: 'Kauvery Private Care', type: 'private', lat: 13.0127, lng: 80.2507, color: '#475569' },
-  { id: 16, name: 'SSKM Government', type: 'government', lat: 22.5326, lng: 88.3439, color: '#16a34a' },
-  { id: 17, name: 'Ramakrishna Mission', type: 'trust', lat: 22.5926, lng: 88.3839, color: '#2563eb' },
-  { id: 18, name: 'AMRI Private', type: 'private', lat: 22.5026, lng: 88.3639, color: '#475569' },
-  { id: 19, name: 'Sassoon General', type: 'government', lat: 18.5204, lng: 73.8767, color: '#16a34a' },
-  { id: 20, name: 'KEM Pune Trust', type: 'trust', lat: 18.4904, lng: 73.8367, color: '#2563eb' },
-  { id: 21, name: 'Ruby Hall Clinic', type: 'private', lat: 18.5404, lng: 73.8967, color: '#475569' },
-  { id: 22, name: 'Civil Hospital', type: 'government', lat: 23.0525, lng: 72.6014, color: '#16a34a' },
-  { id: 23, name: 'VSF Charity Hospital', type: 'trust', lat: 23.0025, lng: 72.5514, color: '#2563eb' },
-  { id: 24, name: 'Zydus Premium Care', type: 'private', lat: 23.0625, lng: 72.5114, color: '#475569' },
-  { id: 25, name: 'SMS Hospital', type: 'government', lat: 26.9024, lng: 75.8073, color: '#16a34a' },
-  { id: 26, name: 'Narayana Trust Care', type: 'trust', lat: 26.8524, lng: 75.7573, color: '#2563eb' },
-  { id: 27, name: 'Fortis Jaipur', type: 'private', lat: 26.8824, lng: 75.8373, color: '#475569' },
-  { id: 28, name: 'KGMU Hospital', type: 'government', lat: 26.8667, lng: 80.9162, color: '#16a34a' },
-  { id: 29, name: 'Sahara Trust', type: 'trust', lat: 26.8167, lng: 80.9762, color: '#2563eb' },
-  { id: 30, name: 'Medanta Lucknow', type: 'private', lat: 26.8367, lng: 80.9062, color: '#475569' },
-  { id: 31, name: 'PGIMER', type: 'government', lat: 30.7633, lng: 76.7794, color: '#16a34a' },
-  { id: 32, name: 'Rotary Trust Hospital', type: 'trust', lat: 30.7133, lng: 76.8094, color: '#2563eb' },
-  { id: 33, name: 'Max Super Speciality', type: 'private', lat: 30.7233, lng: 76.7294, color: '#475569' },
-  { id: 34, name: 'AIIMS Bhopal', type: 'government', lat: 23.2099, lng: 77.4526, color: '#16a34a' },
-  { id: 35, name: 'BMHRC Trust', type: 'trust', lat: 23.2899, lng: 77.4026, color: '#2563eb' },
-  { id: 36, name: 'Bansal Private Care', type: 'private', lat: 23.2299, lng: 77.3826, color: '#475569' },
-  { id: 37, name: 'Ernakulam General', type: 'government', lat: 9.9712, lng: 76.2873, color: '#16a34a' },
-  { id: 38, name: 'Amrita Trust', type: 'trust', lat: 10.0312, lng: 76.3273, color: '#2563eb' },
-  { id: 39, name: 'Aster Medcity', type: 'private', lat: 10.0612, lng: 76.2573, color: '#475569' }
-]
+  { id: 1, name: 'Gandhi General Hospital', type: 'government', lat: 17.3950, lng: 78.4767, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 2, name: 'Lions Club Trust Hospital', type: 'trust', lat: 17.3650, lng: 78.4967, color: '#2563eb', insurances: ['Star Health', 'Care Health'] },
+  { id: 3, name: 'Apollo Premium Care', type: 'private', lat: 17.4050, lng: 78.4367, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Star Health'] },
+  { id: 4, name: 'KEM Hospital (Govt)', type: 'government', lat: 19.0560, lng: 72.8577, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 5, name: 'Holy Spirit Charity', type: 'trust', lat: 19.0960, lng: 72.8977, color: '#2563eb', insurances: ['HDFC Ergo', 'Care Health'] },
+  { id: 6, name: 'Lilavati Premium', type: 'private', lat: 19.0360, lng: 72.8277, color: '#475569', insurances: ['ICICI Lombard', 'Star Health', 'Care Health'] },
+  { id: 7, name: 'Safdarjung Hospital', type: 'government', lat: 28.5672, lng: 77.2010, color: '#16a34a', insurances: ['PM-JAY'] },
+  { id: 8, name: 'St. Stephen Trust', type: 'trust', lat: 28.6741, lng: 77.2525, color: '#2563eb', insurances: ['Care Health', 'Star Health'] },
+  { id: 9, name: 'Max Super Speciality', type: 'private', lat: 28.6341, lng: 77.1225, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Star Health'] },
+  { id: 10, name: 'Victoria Hospital', type: 'government', lat: 12.9516, lng: 77.5746, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 11, name: 'Sathya Sai Trust', type: 'trust', lat: 12.9916, lng: 77.6146, color: '#2563eb', insurances: ['HDFC Ergo', 'Star Health'] },
+  { id: 12, name: 'Manipal Premium', type: 'private', lat: 12.9316, lng: 77.6346, color: '#475569', insurances: ['ICICI Lombard', 'Care Health', 'Star Health'] },
+  { id: 13, name: 'Rajiv Gandhi Govt', type: 'government', lat: 13.0827, lng: 80.2707, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 14, name: 'Chennai Mission Trust', type: 'trust', lat: 13.0427, lng: 80.2207, color: '#2563eb', insurances: ['Star Health', 'HDFC Ergo'] },
+  { id: 15, name: 'Kauvery Private Care', type: 'private', lat: 13.0127, lng: 80.2507, color: '#475569', insurances: ['ICICI Lombard', 'Care Health', 'HDFC Ergo'] },
+  { id: 16, name: 'SSKM Government', type: 'government', lat: 22.5326, lng: 88.3439, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 17, name: 'Ramakrishna Mission', type: 'trust', lat: 22.5926, lng: 88.3839, color: '#2563eb', insurances: ['Star Health', 'Care Health'] },
+  { id: 18, name: 'AMRI Private', type: 'private', lat: 22.5026, lng: 88.3639, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Star Health'] },
+  { id: 19, name: 'Sassoon General', type: 'government', lat: 18.5204, lng: 73.8767, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 20, name: 'KEM Pune Trust', type: 'trust', lat: 18.4904, lng: 73.8367, color: '#2563eb', insurances: ['Care Health', 'HDFC Ergo'] },
+  { id: 21, name: 'Ruby Hall Clinic', type: 'private', lat: 18.5404, lng: 73.8967, color: '#475569', insurances: ['ICICI Lombard', 'Star Health', 'Care Health'] },
+  { id: 22, name: 'Civil Hospital', type: 'government', lat: 23.0525, lng: 72.6014, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 23, name: 'VSF Charity Hospital', type: 'trust', lat: 23.0025, lng: 72.5514, color: '#2563eb', insurances: ['Star Health', 'HDFC Ergo'] },
+  { id: 24, name: 'Zydus Premium Care', type: 'private', lat: 23.0625, lng: 72.5114, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Care Health'] },
+  { id: 25, name: 'SMS Hospital', type: 'government', lat: 26.9024, lng: 75.8073, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 26, name: 'Narayana Trust Care', type: 'trust', lat: 26.8524, lng: 75.7573, color: '#2563eb', insurances: ['Care Health', 'Star Health'] },
+  { id: 27, name: 'Fortis Jaipur', type: 'private', lat: 26.8824, lng: 75.8373, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Star Health'] },
+  { id: 28, name: 'KGMU Hospital', type: 'government', lat: 26.8667, lng: 80.9162, color: '#16a34a', insurances: ['PM-JAY'] },
+  { id: 29, name: 'Sahara Trust', type: 'trust', lat: 26.8167, lng: 80.9762, color: '#2563eb', insurances: ['Star Health', 'HDFC Ergo'] },
+  { id: 30, name: 'Medanta Lucknow', type: 'private', lat: 26.8367, lng: 80.9062, color: '#475569', insurances: ['ICICI Lombard', 'Care Health', 'HDFC Ergo'] },
+  { id: 31, name: 'PGIMER', type: 'government', lat: 30.7633, lng: 76.7794, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 32, name: 'Rotary Trust Hospital', type: 'trust', lat: 30.7133, lng: 76.8094, color: '#2563eb', insurances: ['Care Health', 'Star Health'] },
+  { id: 33, name: 'Max Super Speciality', type: 'private', lat: 30.7233, lng: 76.7294, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Star Health'] },
+  { id: 34, name: 'AIIMS Bhopal', type: 'government', lat: 23.2099, lng: 77.4526, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 35, name: 'BMHRC Trust', type: 'trust', lat: 23.2899, lng: 77.4026, color: '#2563eb', insurances: ['Star Health', 'HDFC Ergo'] },
+  { id: 36, name: 'Bansal Private Care', type: 'private', lat: 23.2299, lng: 77.3826, color: '#475569', insurances: ['ICICI Lombard', 'Care Health', 'Star Health'] },
+  { id: 37, name: 'Ernakulam General', type: 'government', lat: 9.9712, lng: 76.2873, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 38, name: 'Amrita Trust', type: 'trust', lat: 10.0312, lng: 76.3273, color: '#2563eb', insurances: ['Care Health', 'Star Health'] },
+  { id: 39, name: 'Aster Medcity', type: 'private', lat: 10.0612, lng: 76.2573, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Care Health'] }
+];
+const formatWhatsAppMessage = (procedureName, cityTier, costs, schemes, hospitals) => {
+  let message = `*Procedure:* ${procedureName}\n`;
+  message += `*City/Tier:* ${cityTier}\n\n`;
+  
+  message += `*Cost Breakdown:*\n`;
+  message += `- Government: ₹${costs.govt}\n`;
+  message += `- Trust: ₹${costs.trust}\n`;
+  message += `- Private: ₹${costs.private}\n\n`;
+  
+  message += `*Applicable Government Schemes:*\n`;
+  if (schemes && schemes.length > 0) {
+    schemes.forEach(scheme => {
+      message += `- ${scheme}\n`;
+    });
+  } else {
+    message += `- None found\n`;
+  }
+  message += `\n*Available Local Hospitals:*\n`;
+  
+  hospitals.forEach(hospital => {
+    message += `🏥 ${hospital.name}\n`;
+    message += `📍 https://maps.google.com/?q=${hospital.lat},${hospital.lng || 0}\n\n`;
+  });
 
+  return `https://wa.me/?text=${encodeURIComponent(message)}`;
+};
 const cityCoordinates = {
   'hyderabad': [17.3850, 78.4867],
   'mumbai': [19.0760, 72.8777],
@@ -220,7 +245,9 @@ const HighlightText = ({ text, highlight }) => {
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedTier, setSelectedTier] = useState('tier1')
+  const [selectedInsurance, setSelectedInsurance] = useState('All')
   const [viewMode, setViewMode] = useState('list')
+  const [modalInsurance, setModalInsurance] = useState('');
   
   const [activeModal, setActiveModal] = useState(null)
   const [activeMapProcedure, setActiveMapProcedure] = useState(null)
@@ -383,6 +410,8 @@ function App() {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
+            
+            
             <div className="flex bg-slate-200 p-1 rounded-xl w-fit shrink-0">
               {['tier1', 'tier2', 'tier3'].map((tier) => (
                 <button
@@ -399,6 +428,16 @@ function App() {
       </div>
 
       <main className={`max-w-6xl w-full mx-auto px-4 ${viewMode === 'map' ? 'flex-1 flex flex-col py-4 min-h-0' : 'py-8'}`}>
+        {/* Dynamic Insurance Coverage Badge */}
+        
+        {selectedInsurance !== 'All' && selectedInsurance !== 'PM-JAY' && selectedInsurance !== 'State Scheme' && (
+          <div className="my-4 p-3 bg-green-50 border border-green-200 rounded-xl flex items-center gap-2 animate-fade-in w-full">
+            <span className="flex h-3 w-3 rounded-full bg-green-500 shrink-0"></span>
+            <p className="text-sm text-green-800 font-medium">
+              Your <span className="font-bold">{selectedInsurance}</span> plan is active. Showing <span className="font-bold bg-green-200 px-1.5 py-0.5 rounded">100% Cashless</span> network hospitals and covered procedures.
+            </p>
+          </div>
+        )}
         {viewMode === 'list' ? (
           <>
             {/* NEW: Search Results Counter Badge */}
@@ -583,7 +622,9 @@ function App() {
                     <Popup><strong className="text-red-600">Location Pinned</strong></Popup>
                   </CircleMarker>
                 )}
-                {mockHospitals.map(hospital => (
+                {mockHospitals
+                  .filter(hospital => selectedInsurance === 'All' || hospital.insurances?.includes(selectedInsurance))
+                  .map(hospital => (
                   <CircleMarker 
                     key={hospital.id} 
                     center={[hospital.lat, hospital.lng]} 
@@ -646,7 +687,93 @@ function App() {
                   </div>
                 </div>
               </div>
+{/* --- NEW: Dynamic Insurance Simulator --- */}
+<div className="bg-indigo-50 p-5 rounded-xl border border-indigo-100 mt-8">
+  <h4 className="font-bold text-indigo-900 mb-3">Insurance Coverage Check</h4>
+  <label className="text-sm text-indigo-700 block mb-2 font-medium">Do you have private insurance?</label>
+  <select
+    className="w-full p-2.5 rounded-lg border border-indigo-200 bg-white mb-4 outline-none focus:ring-2 focus:ring-indigo-500"
+    value={modalInsurance}
+    onChange={(e) => setModalInsurance(e.target.value)}
+  >
+    <option value="">No, I don't have insurance</option>
+    <option value="Star Health">Star Health</option>
+    <option value="Care Health">Care Health</option>
+    <option value="ICICI Lombard">ICICI Lombard</option>
+    <option value="HDFC Ergo">HDFC Ergo</option>
+    <option value="Bajaj Allianz">Bajaj Allianz</option>
+    <option value="Niva Bupa">Niva Bupa</option>
+  </select>
 
+  {modalInsurance && (
+    <div className="animate-fade-in">
+      {modalInsurance === "ICICI Lombard" ? (
+         /* Coverage Rejection Message */
+        <div className="bg-red-50 text-red-700 p-3 rounded-lg border border-red-200 text-sm">
+          <span className="font-bold">Not Covered:</span> Sorry, this {modalInsurance} plan does not apply to {activeModal.name}.
+        </div>
+      ) : (
+         /* Dynamic Cost & Hidden Extra Calculation */
+        (() => {
+          // 1. Assign realistic unique coverage rates per provider
+          let coverageRate = 0.9;
+          let coverageLabel = "90%";
+          
+          if (modalInsurance === "Star Health") { coverageRate = 0.90; coverageLabel = "90%"; }
+          else if (modalInsurance === "Care Health") { coverageRate = 0.80; coverageLabel = "80%"; }
+          else if (modalInsurance === "HDFC Ergo") { coverageRate = 0.85; coverageLabel = "85%"; }
+          else if (modalInsurance === "Bajaj Allianz") { coverageRate = 0.75; coverageLabel = "75%"; }
+          else if (modalInsurance === "Niva Bupa") { coverageRate = 0.95; coverageLabel = "95%"; }
+
+          // 2. Use the baseMax and extraCostsTotal that already exist in your component
+          const baseCostToUse = baseMax; 
+          
+          // Insurance covers the base percentage
+          const coveredAmount = baseCostToUse * coverageRate;
+          
+          // 3. Final Math: (Base Cost - Covered Amount) + 100% of the selected hidden extra costs
+          const totalToPay = (baseCostToUse - coveredAmount) + extraCostsTotal;
+
+          return (
+            <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-green-800 font-semibold">Eligible Coverage ({coverageLabel})</span>
+                <span className="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Cashless</span>
+              </div>
+              <div className="space-y-1 text-sm text-green-700 mt-3 border-t border-green-200 pt-2">
+                
+                <div className="flex justify-between">
+                  <span>Base Procedure Cost:</span>
+                  <span className="line-through">₹{baseCostToUse.toLocaleString('en-IN')}</span>
+                </div>
+                
+                <div className="flex justify-between font-medium">
+                  <span>Insurance Pays ({coverageLabel}):</span>
+                  <span>- ₹{coveredAmount.toLocaleString('en-IN')}</span>
+                </div>
+                
+                {/* Dynamically show the extra costs line ONLY if checkboxes are selected */}
+                {extraCostsTotal > 0 && (
+                  <div className="flex justify-between text-amber-700 mt-1">
+                    <span>Selected Extras (Out of pocket):</span>
+                    <span>+ ₹{extraCostsTotal.toLocaleString('en-IN')}</span>
+                  </div>
+                )}
+
+                <div className="flex justify-between text-base font-bold text-green-900 mt-2 pt-2 border-t border-green-200">
+                  <span>Your total to pay amount is:</span>
+                  <span>₹{totalToPay.toLocaleString('en-IN')}</span>
+                </div>
+                
+              </div>
+            </div>
+          );
+        })()
+      )}
+    </div>
+  )}
+</div>
+{/* --- END NEW CODE --- */}
               {/* Interactive Hidden Costs Section */}
               <div className="bg-amber-50 border border-amber-200 rounded-xl p-5">
                 <div className="flex items-center gap-2 mb-3">
@@ -716,7 +843,116 @@ function App() {
                 </div>
               </div>
             </div>
+{/* WHATSAPP BUTTON & LOCATION */}
+              <div className="pt-4 border-t border-slate-100 mt-6">
+                
+                {/* NEW: Quick Location Input */}
+                <div className="mb-4">
+                  <label className="text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-slate-400" /> 
+                    Find Hospitals Near:
+                  </label>
+                  <div className="flex gap-2">
+                    <div className="relative flex-1">
+                      <input 
+                        type="text" 
+                        placeholder="Enter city (e.g. Hyderabad)"
+                        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
+                        value={customCity}
+                        onChange={handleCityInputChange}
+                        onFocus={() => { if(customCity.trim() && suggestions.length > 0) setShowSuggestions(true) }}
+                        onBlur={() => setTimeout(() => setShowSuggestions(false), 200)} 
+                        onKeyDown={(e) => e.key === 'Enter' && handleCitySearch()}
+                      />
+                      {showSuggestions && suggestions.length > 0 && (
+                        <ul className="absolute bottom-full mb-1 z-[60] w-full bg-white border border-slate-200 shadow-xl rounded-xl max-h-48 overflow-y-auto">
+                          {suggestions.map((city) => (
+                            <li 
+                              key={city}
+                              className="px-4 py-2 hover:bg-green-50 cursor-pointer capitalize text-sm text-slate-700 font-medium transition-colors"
+                              onClick={() => handleSuggestionClick(city)}
+                            >
+                              {city}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                    <button 
+                      onClick={handleLocateMe}
+                      disabled={isLocating}
+                      className="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl font-medium hover:bg-slate-200 transition-colors flex items-center justify-center"
+                      title="Use My Location"
+                    >
+                      <Navigation className={`w-5 h-5 ${isLocating ? 'animate-pulse' : ''}`} />
+                    </button>
+                  </div>
+                </div>
 
+                <button
+  onClick={() => {
+    const procedureName = activeModal.name;
+    const cityOrTier = selectedTier.replace('tier', 'Tier ');
+    const costs = {
+      govt: activeModal.costs?.[selectedTier]?.government || 'N/A',
+      trust: activeModal.costs?.[selectedTier]?.trust || 'N/A',
+      private: activeModal.costs?.[selectedTier]?.private || 'N/A'
+    };
+    const schemesList = activeModal.schemes?.map(s => s.name) || [];
+
+    let localHospitals = [];
+    let searchLat = null;
+    let searchLng = null;
+
+    // SCENARIO 1: Look up the city they typed in your cityCoordinates list
+    if (customCity) {
+      const cityKey = customCity.toLowerCase().trim();
+      if (cityCoordinates[cityKey]) {
+        searchLat = cityCoordinates[cityKey][0];
+        searchLng = cityCoordinates[cityKey][1];
+      }
+    } 
+    // SCENARIO 2: They used the GPS button
+    else if (flyLocation && flyLocation.length === 2) {
+      searchLat = flyLocation[0];
+      searchLng = flyLocation[1];
+    }
+
+    // If we successfully found coordinates (from typing or GPS), find the 3 closest!
+    if (searchLat !== null && searchLng !== null) {
+      const getDistance = (lat1, lon1, lat2, lon2) => {
+        const R = 6371; 
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+          Math.sin(dLon/2) * Math.sin(dLon/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c; 
+      };
+
+      localHospitals = [...mockHospitals].sort((a, b) => {
+        const distA = getDistance(searchLat, searchLng, a.lat, a.lng);
+        const distB = getDistance(searchLat, searchLng, b.lat, b.lng);
+        return distA - distB;
+      }).slice(0, 3);
+    }
+
+    // Safety check
+    if (localHospitals.length === 0) {
+      alert("Please enter a valid major city (e.g., Hyderabad, Mumbai, Delhi) or use the location button!");
+      return; 
+    }
+
+    // Generate link and share!
+    const link = formatWhatsAppMessage(procedureName, cityOrTier, costs, schemesList, localHospitals);
+    window.open(link, '_blank');
+  }}
+  className="w-full py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold transition-colors flex items-center justify-center gap-2 shadow-sm"
+>
+  Share to WhatsApp
+</button>
+              </div>
             {/* Sticky Footer Calculator */}
             <div className="shrink-0 sticky bottom-0 bg-slate-900 rounded-b-2xl p-5 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.1)] z-20">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
