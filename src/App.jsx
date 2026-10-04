@@ -184,13 +184,20 @@ const getStemmedTerm = (word) => {
   return lower;
 };
 
+// Match whole words as well as the beginning of a word. This keeps search
+// responsive while a user is typing a symptom (for example, "he" → "heart").
+const matchesSearchWord = (searchWord, searchableText) => {
+  const searchBase = getStemmedTerm(searchWord);
+  const prefixRegex = new RegExp(`\\b${escapeRegExp(searchBase)}\\w*`, 'i');
+  return prefixRegex.test(searchableText);
+};
+
 const HighlightText = ({ text, highlight }) => {
   if (!highlight.trim()) return <>{text}</>;
   
   const searchTokens = highlight.trim().split(/\s+/).filter(Boolean).map(w => {
-    const escapedWord = escapeRegExp(w);
     const escapedStem = escapeRegExp(getStemmedTerm(w));
-    return `\\b${escapedWord}\\b|\\b${escapedStem}\\b`;
+    return `\\b${escapedStem}\\w*`;
   });
 
   if (searchTokens.length === 0) return <>{text}</>;
@@ -248,13 +255,7 @@ function App() {
 
     const searchWords = searchString.split(/\s+/).filter(Boolean);
     
-    const matchesAllWords = searchWords.every(word => {
-      const searchBase = getStemmedTerm(word);
-      const regexWord = new RegExp(`\\b${escapeRegExp(word)}\\b`, 'i');
-      const regexBase = new RegExp(`\\b${escapeRegExp(searchBase)}\\b`, 'i');
-      
-      return regexWord.test(searchableText) || regexBase.test(searchableText);
-    });
+    const matchesAllWords = searchWords.every(word => matchesSearchWord(word, searchableText));
     
     return matchesAllWords;
   });
@@ -424,12 +425,7 @@ function App() {
                     const visibleText = `${procedure.name} ${procedure.category} ${procedure.description}`.toLowerCase();
                     const searchWords = searchString.split(/\s+/).filter(Boolean);
                     
-                    const isVisible = searchWords.every(word => {
-                       const searchBase = getStemmedTerm(word);
-                       const regexWord = new RegExp(`\\b${escapeRegExp(word)}\\b`, 'i');
-                       const regexBase = new RegExp(`\\b${escapeRegExp(searchBase)}\\b`, 'i');
-                       return regexWord.test(visibleText) || regexBase.test(visibleText);
-                    });
+                    const isVisible = searchWords.every(word => matchesSearchWord(word, visibleText));
                     
                     if (!isVisible) {
                       showHiddenBadge = true;
@@ -439,12 +435,7 @@ function App() {
                       const allHidden = [...catKeywords, ...procKeywords];
                       
                       const foundKeyword = allHidden.find(kw => {
-                         return searchWords.some(word => {
-                           const searchBase = getStemmedTerm(word);
-                           const regexWord = new RegExp(`\\b${escapeRegExp(word)}\\b`, 'i');
-                           const regexBase = new RegExp(`\\b${escapeRegExp(searchBase)}\\b`, 'i');
-                           return regexWord.test(kw) || regexBase.test(kw);
-                         });
+                         return searchWords.some(word => matchesSearchWord(word, kw));
                       });
                       matchedKeyword = foundKeyword || searchString;
                     }

@@ -816,7 +816,7 @@
       "name": "Normal Brain CT Scan (Head Trauma)",
       "category": "Diagnostics",
       "description": "Emergency non-contrast CT scan to rule out skull fractures or intracranial brain bleeds.",
-      "costs": {
+      "costs": { 
         "tier1": { "government": "₹0 - ₹500", "trust": "₹1,200 - ₹2,200", "private": "₹2,800 - ₹5,500" },
         "tier2": { "government": "₹0 - ₹300", "trust": "₹900 - ₹1,600", "private": "₹2,000 - ₹4,000" },
         "tier3": { "government": "₹0", "trust": "₹600 - ₹1,100", "private": "₹1,500 - ₹2,800" }
