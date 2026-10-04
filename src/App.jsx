@@ -46,7 +46,29 @@ const mockHospitals = [
   { id: 39, name: 'Aster Medcity', type: 'private', lat: 10.0612, lng: 76.2573, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Care Health'] }
 ];
 const formatWhatsAppMessage = (procedureName, cityTier, costs, schemes, hospitals) => {
-  const message = `*Procedure:* ${procedureName}`;
+  let message = `*Procedure:* ${procedureName}\n`;
+  message += `*City/Tier:* ${cityTier}\n\n`;
+  
+  message += `*Cost Breakdown:*\n`;
+  message += `- Government: ₹${costs.govt}\n`;
+  message += `- Trust: ₹${costs.trust}\n`;
+  message += `- Private: ₹${costs.private}\n\n`;
+  
+  message += `*Applicable Government Schemes:*\n`;
+  if (schemes && schemes.length > 0) {
+    schemes.forEach(scheme => {
+      message += `- ${scheme}\n`;
+    });
+  } else {
+    message += `- None found\n`;
+  }
+  message += `\n*Available Local Hospitals:*\n`;
+  
+  hospitals.forEach(hospital => {
+    message += `🏥 ${hospital.name}\n`;
+    message += `📍 https://maps.google.com/?q=${hospital.lat},${hospital.lng || 0}\n\n`;
+  });
+
   return `https://wa.me/?text=${encodeURIComponent(message)}`;
 };
 const cityCoordinates = {
@@ -679,8 +701,8 @@ function App() {
     <option value="Care Health">Care Health</option>
     <option value="ICICI Lombard">ICICI Lombard</option>
     <option value="HDFC Ergo">HDFC Ergo</option>
-<option value="Bajaj Allianz">Bajaj Allianz</option>
-<option value="Niva Bupa">Niva Bupa</option>
+    <option value="Bajaj Allianz">Bajaj Allianz</option>
+    <option value="Niva Bupa">Niva Bupa</option>
   </select>
 
   {modalInsurance && (
@@ -691,38 +713,58 @@ function App() {
           <span className="font-bold">Not Covered:</span> Sorry, this {modalInsurance} plan does not apply to {activeModal.name}.
         </div>
       ) : (
-         /* Dynamic Cost Reduction (90%) */
+         /* Dynamic Cost & Hidden Extra Calculation */
         (() => {
-          // 1. Grab the private hospital string (e.g., "₹55,000 - ₹95,000")
-          const privateCostStr = activeModal.costs[selectedTier].private;
+          // 1. Assign realistic unique coverage rates per provider
+          let coverageRate = 0.9;
+          let coverageLabel = "90%";
           
-          // 2. Extract the highest number from the string for the calculation
-          const maxCostStr = privateCostStr.split('-')[1] || privateCostStr;
-          const procedureCost = parseInt(maxCostStr.replace(/[^\d]/g, ''), 10);
+          if (modalInsurance === "Star Health") { coverageRate = 0.90; coverageLabel = "90%"; }
+          else if (modalInsurance === "Care Health") { coverageRate = 0.80; coverageLabel = "80%"; }
+          else if (modalInsurance === "HDFC Ergo") { coverageRate = 0.85; coverageLabel = "85%"; }
+          else if (modalInsurance === "Bajaj Allianz") { coverageRate = 0.75; coverageLabel = "75%"; }
+          else if (modalInsurance === "Niva Bupa") { coverageRate = 0.95; coverageLabel = "95%"; }
+
+          // 2. Use the baseMax and extraCostsTotal that already exist in your component
+          const baseCostToUse = baseMax; 
           
-          // 3. Calculate 90% coverage
-          const coveredAmount = procedureCost * 0.9;
-          const totalToPay = procedureCost - coveredAmount;
+          // Insurance covers the base percentage
+          const coveredAmount = baseCostToUse * coverageRate;
+          
+          // 3. Final Math: (Base Cost - Covered Amount) + 100% of the selected hidden extra costs
+          const totalToPay = (baseCostToUse - coveredAmount) + extraCostsTotal;
 
           return (
             <div className="bg-green-50 p-4 rounded-lg border border-green-200">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-green-800 font-semibold">Eligible Coverage (90%)</span>
+                <span className="text-green-800 font-semibold">Eligible Coverage ({coverageLabel})</span>
                 <span className="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Cashless</span>
               </div>
               <div className="space-y-1 text-sm text-green-700 mt-3 border-t border-green-200 pt-2">
+                
                 <div className="flex justify-between">
-                  <span>Estimated Procedure Cost:</span>
-                  <span className="line-through">₹{procedureCost.toLocaleString('en-IN')}</span>
+                  <span>Base Procedure Cost:</span>
+                  <span className="line-through">₹{baseCostToUse.toLocaleString('en-IN')}</span>
                 </div>
+                
                 <div className="flex justify-between font-medium">
-                  <span>Insurance Pays (90%):</span>
+                  <span>Insurance Pays ({coverageLabel}):</span>
                   <span>- ₹{coveredAmount.toLocaleString('en-IN')}</span>
                 </div>
+                
+                {/* Dynamically show the extra costs line ONLY if checkboxes are selected */}
+                {extraCostsTotal > 0 && (
+                  <div className="flex justify-between text-amber-700 mt-1">
+                    <span>Selected Extras (Out of pocket):</span>
+                    <span>+ ₹{extraCostsTotal.toLocaleString('en-IN')}</span>
+                  </div>
+                )}
+
                 <div className="flex justify-between text-base font-bold text-green-900 mt-2 pt-2 border-t border-green-200">
                   <span>Your total to pay amount is:</span>
                   <span>₹{totalToPay.toLocaleString('en-IN')}</span>
                 </div>
+                
               </div>
             </div>
           );
@@ -811,13 +853,31 @@ function App() {
                     Find Hospitals Near:
                   </label>
                   <div className="flex gap-2">
-                    <input 
-                      type="text" 
-                      placeholder="Enter city (e.g. Hyderabad)"
-                      className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
-                      value={customCity}
-                      onChange={(e) => setCustomCity(e.target.value)}
-                    />
+                    <div className="relative flex-1">
+                      <input 
+                        type="text" 
+                        placeholder="Enter city (e.g. Hyderabad)"
+                        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
+                        value={customCity}
+                        onChange={handleCityInputChange}
+                        onFocus={() => { if(customCity.trim() && suggestions.length > 0) setShowSuggestions(true) }}
+                        onBlur={() => setTimeout(() => setShowSuggestions(false), 200)} 
+                        onKeyDown={(e) => e.key === 'Enter' && handleCitySearch()}
+                      />
+                      {showSuggestions && suggestions.length > 0 && (
+                        <ul className="absolute bottom-full mb-1 z-[60] w-full bg-white border border-slate-200 shadow-xl rounded-xl max-h-48 overflow-y-auto">
+                          {suggestions.map((city) => (
+                            <li 
+                              key={city}
+                              className="px-4 py-2 hover:bg-green-50 cursor-pointer capitalize text-sm text-slate-700 font-medium transition-colors"
+                              onClick={() => handleSuggestionClick(city)}
+                            >
+                              {city}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
                     <button 
                       onClick={handleLocateMe}
                       disabled={isLocating}
