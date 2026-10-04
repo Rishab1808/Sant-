@@ -46,29 +46,7 @@ const mockHospitals = [
   { id: 39, name: 'Aster Medcity', type: 'private', lat: 10.0612, lng: 76.2573, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Care Health'] }
 ];
 const formatWhatsAppMessage = (procedureName, cityTier, costs, schemes, hospitals) => {
-  let message = `*Procedure:* ${procedureName}\n`;
-  message += `*City/Tier:* ${cityTier}\n\n`;
-  
-  message += `*Cost Breakdown:*\n`;
-  message += `- Government: ₹${costs.govt}\n`;
-  message += `- Trust: ₹${costs.trust}\n`;
-  message += `- Private: ₹${costs.private}\n\n`;
-  
-  message += `*Applicable Government Schemes:*\n`;
-  if (schemes && schemes.length > 0) {
-    schemes.forEach(scheme => {
-      message += `- ${scheme}\n`;
-    });
-  } else {
-    message += `- None found\n`;
-  }
-  message += `\n*Available Hospitals:*\n`;
-  
-  hospitals.forEach(hospital => {
-    message += `🏥 ${hospital.name}\n`;
-    message += `📍 https://maps.google.com/?q=${hospital.lat},${hospital.lng || 0}\n\n`;
-  });
-
+  const message = `*Procedure:* ${procedureName}`;
   return `https://wa.me/?text=${encodeURIComponent(message)}`;
 };
 const cityCoordinates = {
@@ -823,26 +801,97 @@ function App() {
                 </div>
               </div>
             </div>
-{/* WHATSAPP BUTTON */}
-              <div className="pt-4 border-t border-slate-100 mt-4">
-                <button 
-                  onClick={() => {
-                    const procedureName = activeModal.name;
-                    const cityOrTier = selectedTier.replace('tier', 'Tier ');
-                    const costs = {
-                      govt: activeModal.costs?.[selectedTier]?.government || 'N/A',
-                      trust: activeModal.costs?.[selectedTier]?.trust || 'N/A',
-                      private: activeModal.costs?.[selectedTier]?.private || 'N/A'
-                    };
-                    const schemesList = activeModal.schemes?.map(s => s.name) || [];
-                    
-                    const link = formatWhatsAppMessage(procedureName, cityOrTier, costs, schemesList, mockHospitals);
-                    window.open(link, '_blank');
-                  }}
-                  className="w-full py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold transition-colors flex items-center justify-center gap-2 shadow-sm"
-                >
-                  Share to WhatsApp
-                </button>
+{/* WHATSAPP BUTTON & LOCATION */}
+              <div className="pt-4 border-t border-slate-100 mt-6">
+                
+                {/* NEW: Quick Location Input */}
+                <div className="mb-4">
+                  <label className="text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-slate-400" /> 
+                    Find Hospitals Near:
+                  </label>
+                  <div className="flex gap-2">
+                    <input 
+                      type="text" 
+                      placeholder="Enter city (e.g. Hyderabad)"
+                      className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
+                      value={customCity}
+                      onChange={(e) => setCustomCity(e.target.value)}
+                    />
+                    <button 
+                      onClick={handleLocateMe}
+                      disabled={isLocating}
+                      className="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl font-medium hover:bg-slate-200 transition-colors flex items-center justify-center"
+                      title="Use My Location"
+                    >
+                      <Navigation className={`w-5 h-5 ${isLocating ? 'animate-pulse' : ''}`} />
+                    </button>
+                  </div>
+                </div>
+
+                <button
+  onClick={() => {
+    const procedureName = activeModal.name;
+    const cityOrTier = selectedTier.replace('tier', 'Tier ');
+    const costs = {
+      govt: activeModal.costs?.[selectedTier]?.government || 'N/A',
+      trust: activeModal.costs?.[selectedTier]?.trust || 'N/A',
+      private: activeModal.costs?.[selectedTier]?.private || 'N/A'
+    };
+    const schemesList = activeModal.schemes?.map(s => s.name) || [];
+
+    let localHospitals = [];
+    let searchLat = null;
+    let searchLng = null;
+
+    // SCENARIO 1: Look up the city they typed in your cityCoordinates list
+    if (customCity) {
+      const cityKey = customCity.toLowerCase().trim();
+      if (cityCoordinates[cityKey]) {
+        searchLat = cityCoordinates[cityKey][0];
+        searchLng = cityCoordinates[cityKey][1];
+      }
+    } 
+    // SCENARIO 2: They used the GPS button
+    else if (flyLocation && flyLocation.length === 2) {
+      searchLat = flyLocation[0];
+      searchLng = flyLocation[1];
+    }
+
+    // If we successfully found coordinates (from typing or GPS), find the 3 closest!
+    if (searchLat !== null && searchLng !== null) {
+      const getDistance = (lat1, lon1, lat2, lon2) => {
+        const R = 6371; 
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+          Math.sin(dLon/2) * Math.sin(dLon/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c; 
+      };
+
+      localHospitals = [...mockHospitals].sort((a, b) => {
+        const distA = getDistance(searchLat, searchLng, a.lat, a.lng);
+        const distB = getDistance(searchLat, searchLng, b.lat, b.lng);
+        return distA - distB;
+      }).slice(0, 3);
+    }
+
+    // Safety check
+    if (localHospitals.length === 0) {
+      alert("Please enter a valid major city (e.g., Hyderabad, Mumbai, Delhi) or use the location button!");
+      return; 
+    }
+
+    // Generate link and share!
+    const link = formatWhatsAppMessage(procedureName, cityOrTier, costs, schemesList, localHospitals);
+    window.open(link, '_blank');
+  }}
+  className="w-full py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold transition-colors flex items-center justify-center gap-2 shadow-sm"
+>
+  Share to WhatsApp
+</button>
               </div>
             {/* Sticky Footer Calculator */}
             <div className="shrink-0 sticky bottom-0 bg-slate-900 rounded-b-2xl p-5 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.1)] z-20">
