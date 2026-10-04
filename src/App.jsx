@@ -422,6 +422,7 @@ function App() {
               <option value="ICICI Lombard">ICICI Lombard</option>
               <option value="Care Health">Care Health</option>
             </select>
+            
             <div className="flex bg-slate-200 p-1 rounded-xl w-fit shrink-0">
               {['tier1', 'tier2', 'tier3'].map((tier) => (
                 <button
@@ -438,6 +439,16 @@ function App() {
       </div>
 
       <main className={`max-w-6xl w-full mx-auto px-4 ${viewMode === 'map' ? 'flex-1 flex flex-col py-4 min-h-0' : 'py-8'}`}>
+        {/* Dynamic Insurance Coverage Badge */}
+        
+        {selectedInsurance !== 'All' && selectedInsurance !== 'PM-JAY' && selectedInsurance !== 'State Scheme' && (
+          <div className="my-4 p-3 bg-green-50 border border-green-200 rounded-xl flex items-center gap-2 animate-fade-in w-full">
+            <span className="flex h-3 w-3 rounded-full bg-green-500 shrink-0"></span>
+            <p className="text-sm text-green-800 font-medium">
+              Your <span className="font-bold">{selectedInsurance}</span> plan is active. Showing <span className="font-bold bg-green-200 px-1.5 py-0.5 rounded">100% Cashless</span> network hospitals and covered procedures.
+            </p>
+          </div>
+        )}
         {viewMode === 'list' ? (
           <>
             {/* NEW: Search Results Counter Badge */}
