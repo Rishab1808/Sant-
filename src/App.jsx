@@ -5,46 +5,46 @@ import 'leaflet/dist/leaflet.css'
 import data from '../healthcare_data.json'
 
 const mockHospitals = [
-  { id: 1, name: 'Gandhi General Hospital', type: 'government', lat: 17.3950, lng: 78.4767, color: '#16a34a' },
-  { id: 2, name: 'Lions Club Trust Hospital', type: 'trust', lat: 17.3650, lng: 78.4967, color: '#2563eb' },
-  { id: 3, name: 'Apollo Premium Care', type: 'private', lat: 17.4050, lng: 78.4367, color: '#475569' },
-  { id: 4, name: 'KEM Hospital (Govt)', type: 'government', lat: 19.0560, lng: 72.8577, color: '#16a34a' },
-  { id: 5, name: 'Holy Spirit Charity', type: 'trust', lat: 19.0960, lng: 72.8977, color: '#2563eb' },
-  { id: 6, name: 'Lilavati Premium', type: 'private', lat: 19.0360, lng: 72.8277, color: '#475569' },
-  { id: 7, name: 'Safdarjung Hospital', type: 'government', lat: 28.5672, lng: 77.2010, color: '#16a34a' },
-  { id: 8, name: 'St. Stephen Trust', type: 'trust', lat: 28.6741, lng: 77.2525, color: '#2563eb' },
-  { id: 9, name: 'Max Super Speciality', type: 'private', lat: 28.6341, lng: 77.1225, color: '#475569' },
-  { id: 10, name: 'Victoria Hospital', type: 'government', lat: 12.9516, lng: 77.5746, color: '#16a34a' },
-  { id: 11, name: 'Sathya Sai Trust', type: 'trust', lat: 12.9916, lng: 77.6146, color: '#2563eb' },
-  { id: 12, name: 'Manipal Premium', type: 'private', lat: 12.9316, lng: 77.6346, color: '#475569' },
-  { id: 13, name: 'Rajiv Gandhi Govt', type: 'government', lat: 13.0827, lng: 80.2707, color: '#16a34a' },
-  { id: 14, name: 'Chennai Mission Trust', type: 'trust', lat: 13.0427, lng: 80.2207, color: '#2563eb' },
-  { id: 15, name: 'Kauvery Private Care', type: 'private', lat: 13.0127, lng: 80.2507, color: '#475569' },
-  { id: 16, name: 'SSKM Government', type: 'government', lat: 22.5326, lng: 88.3439, color: '#16a34a' },
-  { id: 17, name: 'Ramakrishna Mission', type: 'trust', lat: 22.5926, lng: 88.3839, color: '#2563eb' },
-  { id: 18, name: 'AMRI Private', type: 'private', lat: 22.5026, lng: 88.3639, color: '#475569' },
-  { id: 19, name: 'Sassoon General', type: 'government', lat: 18.5204, lng: 73.8767, color: '#16a34a' },
-  { id: 20, name: 'KEM Pune Trust', type: 'trust', lat: 18.4904, lng: 73.8367, color: '#2563eb' },
-  { id: 21, name: 'Ruby Hall Clinic', type: 'private', lat: 18.5404, lng: 73.8967, color: '#475569' },
-  { id: 22, name: 'Civil Hospital', type: 'government', lat: 23.0525, lng: 72.6014, color: '#16a34a' },
-  { id: 23, name: 'VSF Charity Hospital', type: 'trust', lat: 23.0025, lng: 72.5514, color: '#2563eb' },
-  { id: 24, name: 'Zydus Premium Care', type: 'private', lat: 23.0625, lng: 72.5114, color: '#475569' },
-  { id: 25, name: 'SMS Hospital', type: 'government', lat: 26.9024, lng: 75.8073, color: '#16a34a' },
-  { id: 26, name: 'Narayana Trust Care', type: 'trust', lat: 26.8524, lng: 75.7573, color: '#2563eb' },
-  { id: 27, name: 'Fortis Jaipur', type: 'private', lat: 26.8824, lng: 75.8373, color: '#475569' },
-  { id: 28, name: 'KGMU Hospital', type: 'government', lat: 26.8667, lng: 80.9162, color: '#16a34a' },
-  { id: 29, name: 'Sahara Trust', type: 'trust', lat: 26.8167, lng: 80.9762, color: '#2563eb' },
-  { id: 30, name: 'Medanta Lucknow', type: 'private', lat: 26.8367, lng: 80.9062, color: '#475569' },
-  { id: 31, name: 'PGIMER', type: 'government', lat: 30.7633, lng: 76.7794, color: '#16a34a' },
-  { id: 32, name: 'Rotary Trust Hospital', type: 'trust', lat: 30.7133, lng: 76.8094, color: '#2563eb' },
-  { id: 33, name: 'Max Super Speciality', type: 'private', lat: 30.7233, lng: 76.7294, color: '#475569' },
-  { id: 34, name: 'AIIMS Bhopal', type: 'government', lat: 23.2099, lng: 77.4526, color: '#16a34a' },
-  { id: 35, name: 'BMHRC Trust', type: 'trust', lat: 23.2899, lng: 77.4026, color: '#2563eb' },
-  { id: 36, name: 'Bansal Private Care', type: 'private', lat: 23.2299, lng: 77.3826, color: '#475569' },
-  { id: 37, name: 'Ernakulam General', type: 'government', lat: 9.9712, lng: 76.2873, color: '#16a34a' },
-  { id: 38, name: 'Amrita Trust', type: 'trust', lat: 10.0312, lng: 76.3273, color: '#2563eb' },
-  { id: 39, name: 'Aster Medcity', type: 'private', lat: 10.0612, lng: 76.2573, color: '#475569' }
-]
+  { id: 1, name: 'Gandhi General Hospital', type: 'government', lat: 17.3950, lng: 78.4767, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 2, name: 'Lions Club Trust Hospital', type: 'trust', lat: 17.3650, lng: 78.4967, color: '#2563eb', insurances: ['Star Health', 'Care Health'] },
+  { id: 3, name: 'Apollo Premium Care', type: 'private', lat: 17.4050, lng: 78.4367, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Star Health'] },
+  { id: 4, name: 'KEM Hospital (Govt)', type: 'government', lat: 19.0560, lng: 72.8577, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 5, name: 'Holy Spirit Charity', type: 'trust', lat: 19.0960, lng: 72.8977, color: '#2563eb', insurances: ['HDFC Ergo', 'Care Health'] },
+  { id: 6, name: 'Lilavati Premium', type: 'private', lat: 19.0360, lng: 72.8277, color: '#475569', insurances: ['ICICI Lombard', 'Star Health', 'Care Health'] },
+  { id: 7, name: 'Safdarjung Hospital', type: 'government', lat: 28.5672, lng: 77.2010, color: '#16a34a', insurances: ['PM-JAY'] },
+  { id: 8, name: 'St. Stephen Trust', type: 'trust', lat: 28.6741, lng: 77.2525, color: '#2563eb', insurances: ['Care Health', 'Star Health'] },
+  { id: 9, name: 'Max Super Speciality', type: 'private', lat: 28.6341, lng: 77.1225, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Star Health'] },
+  { id: 10, name: 'Victoria Hospital', type: 'government', lat: 12.9516, lng: 77.5746, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 11, name: 'Sathya Sai Trust', type: 'trust', lat: 12.9916, lng: 77.6146, color: '#2563eb', insurances: ['HDFC Ergo', 'Star Health'] },
+  { id: 12, name: 'Manipal Premium', type: 'private', lat: 12.9316, lng: 77.6346, color: '#475569', insurances: ['ICICI Lombard', 'Care Health', 'Star Health'] },
+  { id: 13, name: 'Rajiv Gandhi Govt', type: 'government', lat: 13.0827, lng: 80.2707, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 14, name: 'Chennai Mission Trust', type: 'trust', lat: 13.0427, lng: 80.2207, color: '#2563eb', insurances: ['Star Health', 'HDFC Ergo'] },
+  { id: 15, name: 'Kauvery Private Care', type: 'private', lat: 13.0127, lng: 80.2507, color: '#475569', insurances: ['ICICI Lombard', 'Care Health', 'HDFC Ergo'] },
+  { id: 16, name: 'SSKM Government', type: 'government', lat: 22.5326, lng: 88.3439, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 17, name: 'Ramakrishna Mission', type: 'trust', lat: 22.5926, lng: 88.3839, color: '#2563eb', insurances: ['Star Health', 'Care Health'] },
+  { id: 18, name: 'AMRI Private', type: 'private', lat: 22.5026, lng: 88.3639, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Star Health'] },
+  { id: 19, name: 'Sassoon General', type: 'government', lat: 18.5204, lng: 73.8767, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 20, name: 'KEM Pune Trust', type: 'trust', lat: 18.4904, lng: 73.8367, color: '#2563eb', insurances: ['Care Health', 'HDFC Ergo'] },
+  { id: 21, name: 'Ruby Hall Clinic', type: 'private', lat: 18.5404, lng: 73.8967, color: '#475569', insurances: ['ICICI Lombard', 'Star Health', 'Care Health'] },
+  { id: 22, name: 'Civil Hospital', type: 'government', lat: 23.0525, lng: 72.6014, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 23, name: 'VSF Charity Hospital', type: 'trust', lat: 23.0025, lng: 72.5514, color: '#2563eb', insurances: ['Star Health', 'HDFC Ergo'] },
+  { id: 24, name: 'Zydus Premium Care', type: 'private', lat: 23.0625, lng: 72.5114, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Care Health'] },
+  { id: 25, name: 'SMS Hospital', type: 'government', lat: 26.9024, lng: 75.8073, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 26, name: 'Narayana Trust Care', type: 'trust', lat: 26.8524, lng: 75.7573, color: '#2563eb', insurances: ['Care Health', 'Star Health'] },
+  { id: 27, name: 'Fortis Jaipur', type: 'private', lat: 26.8824, lng: 75.8373, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Star Health'] },
+  { id: 28, name: 'KGMU Hospital', type: 'government', lat: 26.8667, lng: 80.9162, color: '#16a34a', insurances: ['PM-JAY'] },
+  { id: 29, name: 'Sahara Trust', type: 'trust', lat: 26.8167, lng: 80.9762, color: '#2563eb', insurances: ['Star Health', 'HDFC Ergo'] },
+  { id: 30, name: 'Medanta Lucknow', type: 'private', lat: 26.8367, lng: 80.9062, color: '#475569', insurances: ['ICICI Lombard', 'Care Health', 'HDFC Ergo'] },
+  { id: 31, name: 'PGIMER', type: 'government', lat: 30.7633, lng: 76.7794, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 32, name: 'Rotary Trust Hospital', type: 'trust', lat: 30.7133, lng: 76.8094, color: '#2563eb', insurances: ['Care Health', 'Star Health'] },
+  { id: 33, name: 'Max Super Speciality', type: 'private', lat: 30.7233, lng: 76.7294, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Star Health'] },
+  { id: 34, name: 'AIIMS Bhopal', type: 'government', lat: 23.2099, lng: 77.4526, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 35, name: 'BMHRC Trust', type: 'trust', lat: 23.2899, lng: 77.4026, color: '#2563eb', insurances: ['Star Health', 'HDFC Ergo'] },
+  { id: 36, name: 'Bansal Private Care', type: 'private', lat: 23.2299, lng: 77.3826, color: '#475569', insurances: ['ICICI Lombard', 'Care Health', 'Star Health'] },
+  { id: 37, name: 'Ernakulam General', type: 'government', lat: 9.9712, lng: 76.2873, color: '#16a34a', insurances: ['PM-JAY', 'State Scheme'] },
+  { id: 38, name: 'Amrita Trust', type: 'trust', lat: 10.0312, lng: 76.3273, color: '#2563eb', insurances: ['Care Health', 'Star Health'] },
+  { id: 39, name: 'Aster Medcity', type: 'private', lat: 10.0612, lng: 76.2573, color: '#475569', insurances: ['HDFC Ergo', 'ICICI Lombard', 'Care Health'] }
+];
 const formatWhatsAppMessage = (procedureName, cityTier, costs, schemes, hospitals) => {
   let message = `*Procedure:* ${procedureName}\n`;
   message += `*City/Tier:* ${cityTier}\n\n`;
@@ -245,6 +245,7 @@ const HighlightText = ({ text, highlight }) => {
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedTier, setSelectedTier] = useState('tier1')
+  const [selectedInsurance, setSelectedInsurance] = useState('All')
   const [viewMode, setViewMode] = useState('list')
   
   const [activeModal, setActiveModal] = useState(null)
@@ -408,6 +409,19 @@ function App() {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
+            <select
+              value={selectedInsurance}
+              onChange={(e) => setSelectedInsurance(e.target.value)}
+              className="px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm font-medium text-slate-700"
+            >
+              <option value="All">Any Insurance</option>
+              <option value="PM-JAY">Ayushman Bharat (PM-JAY)</option>
+              <option value="State Scheme">State Health Scheme</option>
+              <option value="Star Health">Star Health</option>
+              <option value="HDFC Ergo">HDFC Ergo</option>
+              <option value="ICICI Lombard">ICICI Lombard</option>
+              <option value="Care Health">Care Health</option>
+            </select>
             <div className="flex bg-slate-200 p-1 rounded-xl w-fit shrink-0">
               {['tier1', 'tier2', 'tier3'].map((tier) => (
                 <button
@@ -608,7 +622,9 @@ function App() {
                     <Popup><strong className="text-red-600">Location Pinned</strong></Popup>
                   </CircleMarker>
                 )}
-                {mockHospitals.map(hospital => (
+                {mockHospitals
+                  .filter(hospital => selectedInsurance === 'All' || hospital.insurances?.includes(selectedInsurance))
+                  .map(hospital => (
                   <CircleMarker 
                     key={hospital.id} 
                     center={[hospital.lat, hospital.lng]} 
