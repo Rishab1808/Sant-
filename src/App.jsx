@@ -247,6 +247,7 @@ function App() {
   const [selectedTier, setSelectedTier] = useState('tier1')
   const [selectedInsurance, setSelectedInsurance] = useState('All')
   const [viewMode, setViewMode] = useState('list')
+  const [modalInsurance, setModalInsurance] = useState('');
   
   const [activeModal, setActiveModal] = useState(null)
   const [activeMapProcedure, setActiveMapProcedure] = useState(null)
@@ -409,19 +410,7 @@ function App() {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <select
-              value={selectedInsurance}
-              onChange={(e) => setSelectedInsurance(e.target.value)}
-              className="px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm font-medium text-slate-700"
-            >
-              <option value="All">Any Insurance</option>
-              <option value="PM-JAY">Ayushman Bharat (PM-JAY)</option>
-              <option value="State Scheme">State Health Scheme</option>
-              <option value="Star Health">Star Health</option>
-              <option value="HDFC Ergo">HDFC Ergo</option>
-              <option value="ICICI Lombard">ICICI Lombard</option>
-              <option value="Care Health">Care Health</option>
-            </select>
+            
             
             <div className="flex bg-slate-200 p-1 rounded-xl w-fit shrink-0">
               {['tier1', 'tier2', 'tier3'].map((tier) => (
@@ -698,7 +687,73 @@ function App() {
                   </div>
                 </div>
               </div>
+{/* --- NEW: Dynamic Insurance Simulator --- */}
+<div className="bg-indigo-50 p-5 rounded-xl border border-indigo-100 mt-8">
+  <h4 className="font-bold text-indigo-900 mb-3">Insurance Coverage Check</h4>
+  <label className="text-sm text-indigo-700 block mb-2 font-medium">Do you have private insurance?</label>
+  <select
+    className="w-full p-2.5 rounded-lg border border-indigo-200 bg-white mb-4 outline-none focus:ring-2 focus:ring-indigo-500"
+    value={modalInsurance}
+    onChange={(e) => setModalInsurance(e.target.value)}
+  >
+    <option value="">No, I don't have insurance</option>
+    <option value="Star Health">Star Health</option>
+    <option value="Care Health">Care Health</option>
+    <option value="ICICI Lombard">ICICI Lombard</option>
+    <option value="HDFC Ergo">HDFC Ergo</option>
+<option value="Bajaj Allianz">Bajaj Allianz</option>
+<option value="Niva Bupa">Niva Bupa</option>
+  </select>
 
+  {modalInsurance && (
+    <div className="animate-fade-in">
+      {modalInsurance === "ICICI Lombard" ? (
+         /* Coverage Rejection Message */
+        <div className="bg-red-50 text-red-700 p-3 rounded-lg border border-red-200 text-sm">
+          <span className="font-bold">Not Covered:</span> Sorry, this {modalInsurance} plan does not apply to {activeModal.name}.
+        </div>
+      ) : (
+         /* Dynamic Cost Reduction (90%) */
+        (() => {
+          // 1. Grab the private hospital string (e.g., "₹55,000 - ₹95,000")
+          const privateCostStr = activeModal.costs[selectedTier].private;
+          
+          // 2. Extract the highest number from the string for the calculation
+          const maxCostStr = privateCostStr.split('-')[1] || privateCostStr;
+          const procedureCost = parseInt(maxCostStr.replace(/[^\d]/g, ''), 10);
+          
+          // 3. Calculate 90% coverage
+          const coveredAmount = procedureCost * 0.9;
+          const totalToPay = procedureCost - coveredAmount;
+
+          return (
+            <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-green-800 font-semibold">Eligible Coverage (90%)</span>
+                <span className="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Cashless</span>
+              </div>
+              <div className="space-y-1 text-sm text-green-700 mt-3 border-t border-green-200 pt-2">
+                <div className="flex justify-between">
+                  <span>Estimated Procedure Cost:</span>
+                  <span className="line-through">₹{procedureCost.toLocaleString('en-IN')}</span>
+                </div>
+                <div className="flex justify-between font-medium">
+                  <span>Insurance Pays (90%):</span>
+                  <span>- ₹{coveredAmount.toLocaleString('en-IN')}</span>
+                </div>
+                <div className="flex justify-between text-base font-bold text-green-900 mt-2 pt-2 border-t border-green-200">
+                  <span>Your total to pay amount is:</span>
+                  <span>₹{totalToPay.toLocaleString('en-IN')}</span>
+                </div>
+              </div>
+            </div>
+          );
+        })()
+      )}
+    </div>
+  )}
+</div>
+{/* --- END NEW CODE --- */}
               {/* Interactive Hidden Costs Section */}
               <div className="bg-amber-50 border border-amber-200 rounded-xl p-5">
                 <div className="flex items-center gap-2 mb-3">
